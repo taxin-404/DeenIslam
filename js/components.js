@@ -285,6 +285,7 @@ toastStyle.innerHTML = `
 document.head.appendChild(toastStyle);
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DeenIslam Components Loaded - v1.0.1');
     // Initialize Font Size Manager
     if (window.fontSizeManager) window.fontSizeManager.init();
 
