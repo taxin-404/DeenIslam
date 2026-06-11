@@ -3,8 +3,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Language: Bengali](https://img.shields.io/badge/Language-Bengali-green.svg)](#)
 [![Tech: TailwindCSS](https://img.shields.io/badge/Tech-TailwindCSS-38B2AC.svg)](#)
+[![Live Site](https://img.shields.io/badge/Live-Demo-blue.svg)](https://mehedishakeel.github.io/DeenIslam/)
 
 **DeenIslam** is a modern, responsive, and feature-rich Islamic web application designed to help Muslims in their daily spiritual journey. Built with a focus on accessibility and user experience, it provides essential Islamic resources in the Bengali language.
+
+🔗 **Live Demo:** [https://mehedishakeel.github.io/DeenIslam/](https://mehedishakeel.github.io/DeenIslam/)
 
 ---
 
