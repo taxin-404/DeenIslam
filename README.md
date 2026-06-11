@@ -7,7 +7,7 @@
 
 **DeenIslam** is a modern, responsive, and feature-rich Islamic web application designed to help Muslims in their daily spiritual journey. Built with a focus on accessibility and user experience, it provides essential Islamic resources in the Bengali language.
 
-🔗 **Live Demo:** [https://mehedishakeel.github.io/DeenIslam/](https://mehedishakeel.github.io/DeenIslam/)
+🔗 **Live Demo:** [https://mehedishakeel.github.io/DeenIslam/](https://mehedishakeel.github.io/DeenIslam/) | [https://deenislam.org/](https://deenislam.org/)
 
 ---
 
