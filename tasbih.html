@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ডিজিটাল তাসবীহ - DeenIslam</title>
+  <link rel="icon" type="image/x-icon" href="favicon/deenislam.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/theme.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { primary: '#059669', secondary: '#d97706' },
+          fontFamily: { bengali: ['Noto Sans Bengali', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes pulse-ring {
+      0% { transform: scale(.33); }
+      80%, 100% { opacity: 0; }
+    }
+    .pulse-animation {
+      animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+    .tap-area:active { transform: scale(0.95); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 flex flex-col min-h-screen font-bengali overflow-hidden">
+  <div id="navbar-placeholder"></div>
+
+  <main class="flex-grow flex flex-col items-center justify-center p-6 relative">
+    <!-- Target Indicator -->
+    <div class="absolute top-8 left-1/2 -translate-x-1/2 flex items-center space-x-3 bg-white dark:bg-slate-900 px-6 py-2 rounded-full shadow-sm border border-emerald-50 dark:border-slate-800">
+      <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">লক্ষ্য:</span>
+      <span id="target-display" class="text-primary font-bold">৩৩</span>
+    </div>
+
+    <!-- Main Counter Circle -->
+    <div id="tap-area" class="tap-area relative w-72 h-72 md:w-80 md:h-80 bg-white dark:bg-slate-900 rounded-full shadow-2xl flex flex-col items-center justify-center cursor-pointer transition-all duration-150 border-8 border-emerald-50 dark:border-slate-800 select-none">
+      <svg class="absolute inset-0 w-full h-full -rotate-90">
+        <circle cx="50%" cy="50%" r="46%" stroke="currentColor" stroke-width="8" fill="none" class="text-slate-100 dark:text-slate-800" />
+        <circle id="progress-circle" cx="50%" cy="50%" r="46%" stroke="currentColor" stroke-width="8" fill="none" class="text-primary transition-all duration-300" stroke-dasharray="1000" stroke-dashoffset="1000" stroke-linecap="round" />
+      </svg>
+      
+      <div class="relative z-10 text-center">
+        <span id="counter" class="text-7xl md:text-8xl font-black text-slate-800 dark:text-white tabular-nums">০</span>
+      </div>
+      
+      <!-- Feedback Pulse -->
+      <div id="pulse" class="absolute inset-0 rounded-full border-4 border-primary opacity-0 pointer-events-none"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="mt-16 w-full max-w-sm grid grid-cols-3 gap-6">
+      <button id="reset-btn" class="flex flex-col items-center space-y-2 group">
+        <div class="w-14 h-14 bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-emerald-50 dark:border-slate-800 flex items-center justify-center text-slate-400 group-hover:text-red-500 group-hover:border-red-100 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+        </div>
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">রিসেট</span>
+      </button>
+
+      <button id="target-btn" class="flex flex-col items-center space-y-2 group">
+        <div class="w-14 h-14 bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-emerald-50 dark:border-slate-800 flex items-center justify-center text-slate-400 group-hover:text-primary group-hover:border-emerald-100 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        </div>
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">টার্গেট</span>
+      </button>
+
+      <button id="sound-btn" class="flex flex-col items-center space-y-2 group">
+        <div id="sound-icon-container" class="w-14 h-14 bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-emerald-50 dark:border-slate-800 flex items-center justify-center text-slate-400 group-hover:text-primary group-hover:border-emerald-100 transition-all">
+          <svg id="sound-on" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
+        </div>
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">সাউন্ড</span>
+      </button>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- Reset Confirmation Modal -->
+  <div id="reset-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-6">
+    <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"></div>
+    <div class="relative bg-white dark:bg-slate-900 w-full max-w-sm rounded-[2.5rem] p-8 shadow-2xl border border-emerald-50 dark:border-slate-800 text-center">
+      <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-4">রিসেট করতে চান?</h3>
+      <p class="text-slate-500 mb-8">আপনার বর্তমান গণনা শূন্য হয়ে যাবে।</p>
+      <div class="flex space-x-4">
+        <button id="cancel-reset" class="flex-grow py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl font-bold">না</button>
+        <button id="confirm-reset" class="flex-grow py-4 bg-red-500 text-white rounded-2xl font-bold">হ্যাঁ</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const counterDisplay = document.getElementById('counter');
+      const targetDisplay = document.getElementById('target-display');
+      const progressCircle = document.getElementById('progress-circle');
+      const tapArea = document.getElementById('tap-area');
+      const resetBtn = document.getElementById('reset-btn');
+      const targetBtn = document.getElementById('target-btn');
+      const soundBtn = document.getElementById('sound-btn');
+      const soundIconContainer = document.getElementById('sound-icon-container');
+      const resetModal = document.getElementById('reset-modal');
+      const confirmReset = document.getElementById('confirm-reset');
+      const cancelReset = document.getElementById('cancel-reset');
+      const pulse = document.getElementById('pulse');
+
+      let count = parseInt(localStorage.getItem('tasbeeh_count')) || 0;
+      let target = parseInt(localStorage.getItem('tasbeeh_target')) || 33;
+      let soundEnabled = localStorage.getItem('tasbeeh_sound') !== 'false';
+
+      // Audio context for haptic-like sound
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      
+      const playTick = () => {
+        if (!soundEnabled) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.1);
+      };
+
+      const updateDisplay = () => {
+        counterDisplay.innerText = window.toBengaliNumerals(count);
+        targetDisplay.innerText = window.toBengaliNumerals(target);
+        
+        const radius = progressCircle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+        progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+        
+        const progress = (count % target) / target;
+        const offset = circumference - (progress * circumference);
+        progressCircle.style.strokeDashoffset = offset;
+
+        if (count > 0 && count % target === 0) {
+            progressCircle.classList.remove('text-primary');
+            progressCircle.classList.add('text-amber-500');
+            if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+        } else {
+            progressCircle.classList.remove('text-amber-500');
+            progressCircle.classList.add('text-primary');
+        }
+
+        localStorage.setItem('tasbeeh_count', count);
+        localStorage.setItem('tasbeeh_target', target);
+      };
+
+      const updateSoundUI = () => {
+        if (soundEnabled) {
+          soundIconContainer.classList.add('text-primary', 'bg-emerald-50', 'dark:bg-emerald-900/30');
+          soundIconContainer.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>';
+        } else {
+          soundIconContainer.classList.remove('text-primary', 'bg-emerald-50', 'dark:bg-emerald-900/30');
+          soundIconContainer.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>';
+        }
+      };
+
+      tapArea.addEventListener('click', () => {
+        count++;
+        playTick();
+        if (navigator.vibrate) navigator.vibrate(40);
+        
+        pulse.classList.remove('pulse-animation');
+        void pulse.offsetWidth; // Trigger reflow
+        pulse.classList.add('pulse-animation');
+        
+        updateDisplay();
+      });
+
+      resetBtn.onclick = () => resetModal.classList.remove('hidden');
+      cancelReset.onclick = () => resetModal.classList.add('hidden');
+      confirmReset.onclick = () => {
+        count = 0;
+        updateDisplay();
+        resetModal.classList.add('hidden');
+      };
+
+      targetBtn.onclick = () => {
+        const targets = [33, 100, 1000];
+        const currentIndex = targets.indexOf(target);
+        target = targets[(currentIndex + 1) % targets.length];
+        updateDisplay();
+      };
+
+      soundBtn.onclick = () => {
+        soundEnabled = !soundEnabled;
+        localStorage.setItem('tasbeeh_sound', soundEnabled);
+        updateSoundUI();
+      };
+
+      // Handle system back button for mobile or clicking background to close modal
+      window.onclick = (e) => {
+        if (e.target.id === 'reset-modal') resetModal.classList.add('hidden');
+      };
+
+      updateDisplay();
+      updateSoundUI();
+    });
+  </script>
+</body>
+</html>

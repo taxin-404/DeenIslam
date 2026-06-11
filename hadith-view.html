@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&family=Amiri&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/theme.js"></script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -217,6 +218,9 @@
                 <button onclick="window.copyToClipboard('${hadith.arabic.replace(/'/g, "\\'").replace(/\n/g, "\\n")}\\n\\n${hadith.text.replace(/'/g, "\\'").replace(/\n/g, "\\n")}')" class="p-3 bg-emerald-50 dark:bg-emerald-900/30 text-primary rounded-xl hover:bg-primary hover:text-white transition-all shadow-sm" title="কপি করুন">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg>
                 </button>
+                <button onclick="shareHadithAsImage(${hNum})" class="p-3 bg-emerald-50 dark:bg-emerald-900/30 text-primary rounded-xl hover:bg-primary hover:text-white transition-all shadow-sm" title="ছবি হিসেবে শেয়ার করুন">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                </button>
             </div>
           </div>
           
@@ -358,6 +362,42 @@
             svg.setAttribute('fill', isAdded ? 'currentColor' : 'none');
         });
     };
+
+    window.shareHadithAsImage = (hNum) => {
+        const element = document.querySelector(`[data-num="${hNum}"]`);
+        if (!element) return;
+        
+        window.showToast('ছবি তৈরি হচ্ছে...');
+        
+        // Hide buttons for a clean share image
+        const headerButtons = element.querySelector('.flex.items-center.space-x-2');
+        if (headerButtons) headerButtons.style.visibility = 'hidden';
+        
+        html2canvas(element, {
+            backgroundColor: document.documentElement.classList.contains('dark') ? '#0f172a' : '#ffffff',
+            scale: 3,
+            useCORS: true,
+            logging: false,
+            borderRadius: 20
+        }).then(canvas => {
+            if (headerButtons) headerButtons.style.visibility = 'visible';
+            
+            const link = document.createElement('a');
+            link.download = `DeenIslam-Hadith-${bookSlug}-${hNum}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            window.showToast('ছবি ডাউনলোড সম্পন্ন হয়েছে!');
+        }).catch(err => {
+            if (headerButtons) headerButtons.style.visibility = 'visible';
+            console.error('Sharing failed:', err);
+            window.showToast('দুঃখিত, ছবি তৈরিতে সমস্যা হয়েছে।');
+        });
+    };
+
+    // Initialize Recent Search
+    if (window.initRecentSearch) {
+        initRecentSearch('hadith-search', 'recent_hadith_searches');
+    }
   </script>
 
 </body>

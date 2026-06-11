@@ -3,6 +3,74 @@ window.toBengaliNumerals = (n) => {
     return n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
 };
 
+// Recent Search Helper
+window.initRecentSearch = (inputId, storageKey) => {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+
+    const wrapper = input.parentElement;
+    const recentContainer = document.createElement('div');
+    recentContainer.id = `${inputId}-recent`;
+    recentContainer.className = "hidden absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-900 border border-emerald-50 dark:border-slate-800 rounded-2xl shadow-xl z-50 p-4";
+    wrapper.appendChild(recentContainer);
+
+    const updateRecentUI = () => {
+        const searches = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        if (searches.length === 0) {
+            recentContainer.innerHTML = '<p class="text-xs text-slate-400 text-center py-2">কোনো সাম্প্রতিক অনুসন্ধান নেই</p>';
+            return;
+        }
+
+        recentContainer.innerHTML = `
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">সাম্প্রতিক অনুসন্ধান</span>
+                <button id="${inputId}-clear-recent" class="text-[10px] font-bold text-red-400 hover:text-red-500 uppercase tracking-widest">মুছে ফেলুন</button>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                ${searches.map(s => `
+                    <button class="recent-item px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:text-primary transition-all">
+                        ${s}
+                    </button>
+                `).join('')}
+            </div>
+        `;
+
+        document.getElementById(`${inputId}-clear-recent`).onclick = (e) => {
+            e.stopPropagation();
+            localStorage.setItem(storageKey, '[]');
+            updateRecentUI();
+        };
+
+        recentContainer.querySelectorAll('.recent-item').forEach(item => {
+            item.onclick = () => {
+                input.value = item.innerText.trim();
+                input.dispatchEvent(new Event('input'));
+                recentContainer.classList.add('hidden');
+            };
+        });
+    };
+
+    input.onfocus = () => {
+        updateRecentUI();
+        recentContainer.classList.remove('hidden');
+    };
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+        if (!wrapper.contains(e.target)) recentContainer.classList.add('hidden');
+    });
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && input.value.trim()) {
+            let searches = JSON.parse(localStorage.getItem(storageKey) || '[]');
+            const query = input.value.trim();
+            searches = [query, ...searches.filter(s => s !== query)].slice(0, 5);
+            localStorage.setItem(storageKey, JSON.stringify(searches));
+            recentContainer.classList.add('hidden');
+        }
+    });
+};
+
 // Bookmark Helpers (Global)
 window.toggleBookmark = (data) => {
     let bookmarks = JSON.parse(localStorage.getItem('deen_bookmarks') || '[]');
@@ -241,6 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <li><a href="${basePath}quran.html" class="${currentPage === 'quran.html' ? 'text-primary font-bold' : 'hover:text-primary dark:text-slate-300 dark:hover:text-primary transition-colors duration-200 font-medium'}">কুরআন</a></li>
                         <li><a href="${basePath}hadith.html" class="${currentPage === 'hadith.html' ? 'text-primary font-bold' : 'hover:text-primary dark:text-slate-300 dark:hover:text-primary transition-colors duration-200 font-medium'}">হাদিস</a></li>
                         <li><a href="${basePath}salat.html" class="${currentPage === 'salat.html' ? 'text-primary font-bold' : 'hover:text-primary dark:text-slate-300 dark:hover:text-primary transition-colors duration-200 font-medium'}">সালাত</a></li>
+                        <li><a href="${basePath}tasbih.html" class="${currentPage === 'tasbih.html' ? 'text-primary font-bold' : 'hover:text-primary dark:text-slate-300 dark:hover:text-primary transition-colors duration-200 font-medium'}">তাসবীহ</a></li>
                         <li><a href="${basePath}media.html" class="${currentPage === 'media.html' ? 'text-primary font-bold' : 'hover:text-primary dark:text-slate-300 dark:hover:text-primary transition-colors duration-200 font-medium'}">মিডিয়া</a></li>
                         <li><a href="${basePath}articles/index.html" class="${isSubDir || currentPage === 'articles' ? 'text-primary font-bold' : 'hover:text-primary dark:text-slate-300 dark:hover:text-primary transition-colors duration-200 font-medium'}">প্রবন্ধ</a></li>
                         
@@ -281,6 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <a href="${basePath}quran.html" class="block p-3 rounded-xl ${currentPage === 'quran.html' ? 'text-primary font-bold bg-emerald-50 dark:bg-emerald-900/20' : 'font-medium dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}">কুরআন</a>
                 <a href="${basePath}hadith.html" class="block p-3 rounded-xl ${currentPage === 'hadith.html' ? 'text-primary font-bold bg-emerald-50 dark:bg-emerald-900/20' : 'font-medium dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}">হাদিস</a>
                 <a href="${basePath}salat.html" class="block p-3 rounded-xl ${currentPage === 'salat.html' ? 'text-primary font-bold bg-emerald-50 dark:bg-emerald-900/20' : 'font-medium dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}">সালাত</a>
+                <a href="${basePath}tasbih.html" class="block p-3 rounded-xl ${currentPage === 'tasbih.html' ? 'text-primary font-bold bg-emerald-50 dark:bg-emerald-900/20' : 'font-medium dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}">তাসবীহ</a>
                 <a href="${basePath}media.html" class="block p-3 rounded-xl ${currentPage === 'media.html' ? 'text-primary font-bold bg-emerald-50 dark:bg-emerald-900/20' : 'font-medium dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}">মিডিয়া</a>
                 <a href="${basePath}articles/index.html" class="block p-3 rounded-xl ${isSubDir || currentPage === 'articles' ? 'text-primary font-bold bg-emerald-50 dark:bg-emerald-900/20' : 'font-medium dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}">প্রবন্ধ</a>
                 <div>
@@ -331,92 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 2. Inject Tasbeeh Counter (Home Page Only)
-    if ((currentPage === 'index.html' || currentPage === '') && !isSubDir) {
-        const tasbeehHTML = `
-        <button id="tasbeeh-bubble" class="fixed bottom-8 right-8 flex flex-col items-center space-y-1 z-[90] group focus:outline-none">
-            <div class="w-16 h-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center transition-transform group-hover:scale-110 active:scale-95">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="2.5" d="M12 17c-3.866 0-7-3.134-7-7s3.134-7 7-7 7 3.134 7 7-3.134 7-7 7z" stroke-dasharray="0.1 4.5" /></svg>
-            </div>
-            <span class="text-[10px] font-extrabold text-primary dark:text-emerald-400 uppercase tracking-widest bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm border border-emerald-100 dark:border-slate-800">তাসবীহ</span>
-        </button>
-        <div id="tasbeeh-modal" class="fixed inset-0 bg-slate-900/95 backdrop-blur-xl z-[200] hidden flex flex-col items-center justify-center p-6">
-            <button id="close-tasbeeh" class="absolute top-8 right-8 text-white/50 hover:text-white p-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
-            <div class="text-center w-full max-w-md">
-                <h2 class="text-emerald-400 font-bold text-xl mb-8">তাসবীহ পড়ুন</h2>
-                <div class="flex flex-wrap justify-center gap-3 mb-10" id="zikir-selector">
-                    <button class="zikir-btn px-4 py-2 rounded-xl bg-emerald-500 text-white font-bold text-sm" data-zikir="সুবহানাল্লাহ">সুবহানাল্লাহ</button>
-                    <button class="zikir-btn px-4 py-2 rounded-xl bg-white/5 text-white/50 font-bold text-sm" data-zikir="আলহামদুলিল্লাহ">আলহামদুলিল্লাহ</button>
-                    <button class="zikir-btn px-4 py-2 rounded-xl bg-white/5 text-white/50 font-bold text-sm" data-zikir="আল্লাহু আকবার">আল্লাহু আকবার</button>
-                </div>
-                <div id="tasbeeh-circle" class="relative w-72 h-72 mx-auto rounded-full flex items-center justify-center cursor-pointer active:scale-95 transition-transform select-none">
-                    <svg class="absolute inset-0 w-full h-full -rotate-90"><circle cx="50%" cy="50%" r="48%" stroke="rgba(255,255,255,0.05)" stroke-width="8" fill="none" /><circle id="tasbeeh-progress" cx="50%" cy="50%" r="48%" stroke="#10b981" stroke-width="8" fill="none" stroke-dasharray="1000" stroke-dashoffset="1000" stroke-linecap="round" /></svg>
-                    <div class="text-center"><span id="tasbeeh-count" class="text-8xl font-extrabold text-white">০</span></div>
-                </div>
-                <div class="mt-20 flex items-center justify-center space-x-12">
-                    <button id="reset-tasbeeh" class="flex flex-col items-center"><div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-white/40 mb-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg></div></button>
-                    <button id="goal-tasbeeh" class="flex flex-col items-center"><div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-white/40 mb-2"><span id="tasbeeh-goal-label" class="font-bold text-sm">৩৩</span></div></button>
-                </div>
-            </div>
-        </div>
-        <div id="tasbeeh-confirm-modal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-6">
-            <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-md" id="tasbeeh-confirm-bg"></div>
-            <div class="relative bg-white dark:bg-slate-900 w-full max-w-sm rounded-[2rem] p-8 shadow-2xl border border-emerald-100 dark:border-slate-800 transform scale-95 transition-transform duration-300">
-                <h3 class="text-xl font-bold text-slate-800 dark:text-white text-center mb-8">রিসেট করতে চান?</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <button id="tasbeeh-confirm-cancel" class="py-4 rounded-2xl font-bold bg-slate-100 dark:bg-slate-800">না</button>
-                    <button id="tasbeeh-confirm-yes" class="py-4 rounded-2xl font-bold text-white bg-red-500">হ্যাঁ</button>
-                </div>
-            </div>
-        </div>
-        `;
-        const tDiv = document.createElement('div');
-        tDiv.innerHTML = tasbeehHTML;
-        document.body.appendChild(tDiv);
-
-        const tBubble = document.getElementById('tasbeeh-bubble');
-        const tModal = document.getElementById('tasbeeh-modal');
-        const tCloseBtn = document.getElementById('close-tasbeeh');
-        const tResetBtn = document.getElementById('reset-tasbeeh');
-        const tGoalBtn = document.getElementById('goal-tasbeeh');
-        const tCircle = document.getElementById('tasbeeh-circle');
-        const tCountDisplay = document.getElementById('tasbeeh-count');
-        const tProgressBar = document.getElementById('tasbeeh-progress');
-        const tGoalLabel = document.getElementById('tasbeeh-goal-label');
-        const tConfirmModal = document.getElementById('tasbeeh-confirm-modal');
-        const tConfirmYes = document.getElementById('tasbeeh-confirm-yes');
-        const tConfirmCancel = document.getElementById('tasbeeh-confirm-cancel');
-
-        let tCount = parseInt(localStorage.getItem('tasbeeh_count')) || 0;
-        let tGoal = parseInt(localStorage.getItem('tasbeeh_goal')) || 33;
-
-        const tUpdateDisplay = () => {
-            tCountDisplay.innerText = window.toBengaliNumerals(tCount);
-            tGoalLabel.innerText = window.toBengaliNumerals(tGoal);
-            const radius = 48;
-            const circumference = 2 * Math.PI * radius;
-            const offset = circumference - (Math.min(tCount % tGoal, tGoal) / tGoal) * circumference;
-            tProgressBar.style.strokeDasharray = `${circumference} ${circumference}`;
-            tProgressBar.style.strokeDashoffset = offset;
-            localStorage.setItem('tasbeeh_count', tCount);
-        };
-
-        tBubble.onclick = () => tModal.classList.remove('hidden');
-        tCloseBtn.onclick = () => tModal.classList.add('hidden');
-        tCircle.onclick = () => { tCount++; tUpdateDisplay(); if (window.navigator.vibrate) window.navigator.vibrate(50); };
-        tResetBtn.onclick = () => tConfirmModal.classList.remove('hidden');
-        tConfirmCancel.onclick = () => tConfirmModal.classList.add('hidden');
-        tConfirmYes.onclick = () => { tCount = 0; tUpdateDisplay(); tConfirmModal.classList.add('hidden'); };
-        tGoalBtn.onclick = () => {
-            const goals = [33, 100, 1000];
-            tGoal = goals[(goals.indexOf(tGoal) + 1) % goals.length];
-            localStorage.setItem('tasbeeh_goal', tGoal);
-            tUpdateDisplay();
-        };
-        tUpdateDisplay();
-    }
-
-    // 3. Inject Footer
+    // 2. Inject Footer
     const footerPlaceholder = document.getElementById('footer-placeholder');
     if (footerPlaceholder) {
         footerPlaceholder.innerHTML = `

@@ -45,7 +45,7 @@
     
     <div class="flex flex-col md:flex-row items-center gap-4 mb-16 max-w-4xl mx-auto">
       <div class="relative flex-grow w-full">
-        <input type="text" placeholder="সূরা নাম, নম্বর বা আয়াত সংখ্যা দিয়ে খুঁজুন..." class="p-4 pl-12 border border-slate-200 dark:border-slate-800 rounded-full w-full focus:outline-none focus:ring-4 focus:ring-emerald-100 dark:focus:ring-emerald-900/20 focus:border-primary shadow-sm transition-all duration-300">
+        <input type="text" id="surah-search" placeholder="সূরা নাম, নম্বর বা আয়াত সংখ্যা দিয়ে খুঁজুন..." class="p-4 pl-12 border border-slate-200 dark:border-slate-800 rounded-full w-full focus:outline-none focus:ring-4 focus:ring-emerald-100 dark:focus:ring-emerald-900/20 focus:border-primary shadow-sm transition-all duration-300">
         <span class="absolute left-5 top-1/2 transform -translate-y-1/2 text-slate-400">🔍</span>
       </div>
       <div class="w-full md:w-72 relative group">
@@ -592,6 +592,11 @@
             svg.setAttribute('fill', isAdded ? 'currentColor' : 'none');
         });
     };
+
+    // Initialize Recent Search
+    if (window.initRecentSearch) {
+        initRecentSearch('surah-search', 'recent_quran_searches');
+    }
   </script>
 
 </body>
