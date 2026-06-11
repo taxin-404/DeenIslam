@@ -26,4 +26,13 @@
         .dark .bg-slate-900 { background-color: #020617 !important; border-top: 1px solid #1e293b; }
     `;
     document.head.appendChild(style);
+
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('Service Worker registered', reg))
+                .catch(err => console.error('Service Worker registration failed', err));
+        });
+    }
 })();

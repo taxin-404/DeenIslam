@@ -1,0 +1,16 @@
+{
+  "name": "DeenIslam - ইসলামিক জ্ঞান",
+  "short_name": "DeenIslam",
+  "description": "শুদ্ধ ও সঠিক ইসলামিক তথ্য নিয়ে আপনার দ্বীনি জীবনের সফরকে আরও সহজ ও সুন্দর করতে আমরা পাশে আছি।",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#059669",
+  "theme_color": "#059669",
+  "icons": [
+    {
+      "src": "favicon/deenislam.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
