@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>কৃতজ্ঞতা ও রিসোর্স - DeenIslam</title>
+  <link rel="icon" type="image/x-icon" href="favicon/deenislam.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/theme.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { primary: '#059669', secondary: '#d97706' },
+          fontFamily: { bengali: ['Noto Sans Bengali', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 flex flex-col min-h-screen font-bengali">
+  <div id="navbar-placeholder"></div>
+
+  <main class="container mx-auto px-6 py-16 flex-grow">
+    <div class="max-w-4xl mx-auto text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-6 tracking-tight">কৃতজ্ঞতা স্বীকার</h1>
+      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
+        এই ওয়েবসাইটটি তৈরি করতে আমরা বিভিন্ন মুক্ত ও উন্মুক্ত সোর্স (Open Source) রিসোর্স ব্যবহার করেছি। আমরা সেই সকল মহৎ উদ্যোগের প্রতি কৃতজ্ঞতা প্রকাশ করছি।
+      </p>
+      <div class="w-24 h-1.5 bg-primary mx-auto rounded-full mt-8 shadow-lg shadow-primary/20"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <!-- APIs Section -->
+      <div class="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] shadow-sm border border-emerald-50 dark:border-slate-800">
+        <div class="flex items-center space-x-4 mb-6">
+            <div class="w-12 h-12 bg-emerald-50 dark:bg-emerald-900/30 text-primary rounded-2xl flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800 dark:text-white">ব্যবহৃত API সমূহ</h2>
+        </div>
+        <ul class="space-y-4">
+            <li class="flex items-start space-x-3">
+                <span class="text-primary mt-1">✦</span>
+                <div>
+                    <p class="font-bold text-slate-700 dark:text-slate-200">AlQuran.cloud API</p>
+                    <p class="text-sm text-slate-500">কুরআন টেক্সট, অডিও এবং অনুবাদের জন্য ব্যবহৃত।</p>
+                </div>
+            </li>
+            <li class="flex items-start space-x-3">
+                <span class="text-primary mt-1">✦</span>
+                <div>
+                    <p class="font-bold text-slate-700 dark:text-slate-200">Hadith API (Fawaz Ahmed)</p>
+                    <p class="text-sm text-slate-500">সহীহ হাদিস সংগ্রহের বিশাল ভাণ্ডারের জন্য।</p>
+                </div>
+            </li>
+            <li class="flex items-start space-x-3">
+                <span class="text-primary mt-1">✦</span>
+                <div>
+                    <p class="font-bold text-slate-700 dark:text-slate-200">Aladhan.com</p>
+                    <p class="text-sm text-slate-500">সঠিক নামাজের সময় এবং ক্যালেন্ডার তথ্যের জন্য।</p>
+                </div>
+            </li>
+            <li class="flex items-start space-x-3">
+                <span class="text-primary mt-1">✦</span>
+                <div>
+                    <p class="font-bold text-slate-700 dark:text-slate-200">BigDataCloud API</p>
+                    <p class="text-sm text-slate-500">ইউজারের লোকেশন অনুযায়ী নামাজের সময় নির্ধারণে ব্যবহৃত।</p>
+                </div>
+            </li>
+        </ul>
+      </div>
+
+      <!-- Tech Stack Section -->
+      <div class="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] shadow-sm border border-emerald-50 dark:border-slate-800">
+        <div class="flex items-center space-x-4 mb-6">
+            <div class="w-12 h-12 bg-amber-50 dark:bg-amber-900/30 text-amber-600 rounded-2xl flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.642.321a2 2 0 01-1.584.07l-2.068-.722a2 2 0 00-1.764.128l-2.983 1.492m14.73 0l-2.254 2.254a1 1 0 01-1.414 0l-1.414-1.414a1 1 0 010-1.414l2.254-2.254m-14.73 0l2.254-2.254a1 1 0 011.414 0l1.414 1.414a1 1 0 010 1.414l-2.254 2.254m0 0l2.254 2.254a1 1 0 001.414 0l1.414-1.414a1 1 0 000-1.414l-2.254-2.254" /></svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800 dark:text-white">প্রযুক্তি ও ফন্ট</h2>
+        </div>
+        <ul class="space-y-4">
+            <li class="flex items-start space-x-3">
+                <span class="text-amber-600 mt-1">✦</span>
+                <div>
+                    <p class="font-bold text-slate-700 dark:text-slate-200">Tailwind CSS</p>
+                    <p class="text-sm text-slate-500">আধুনিক এবং রেসপন্সিভ ডিজাইনের ফ্রেমওয়ার্ক হিসেবে।</p>
+                </div>
+            </li>
+            <li class="flex items-start space-x-3">
+                <span class="text-amber-600 mt-1">✦</span>
+                <div>
+                    <p class="font-bold text-slate-700 dark:text-slate-200">Google Fonts (Noto Sans Bengali)</p>
+                    <p class="text-sm text-slate-500">বাংলা লিখাকে পাঠযোগ্য ও সুন্দর করার জন্য।</p>
+                </div>
+            </li>
+            <li class="flex items-start space-x-3">
+                <span class="text-amber-600 mt-1">✦</span>
+                <div>
+                    <p class="font-bold text-slate-700 dark:text-slate-200">Heroicons</p>
+                    <p class="text-sm text-slate-500">ওয়েবসাইটের আইকনগুলোর জন্য কৃতজ্ঞতা প্রকাশ করছি।</p>
+                </div>
+            </li>
+            <li class="flex items-start space-x-3">
+                <span class="text-amber-600 mt-1">✦</span>
+                <div>
+                    <p class="font-bold text-slate-700 dark:text-slate-200">YouTube Embed</p>
+                    <p class="text-sm text-slate-500">ইসলামিক মিডিয়া ও ভিডিও রিসোর্সের জন্য।</p>
+                </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-16 bg-primary/5 dark:bg-primary/10 rounded-[3rem] p-10 md:p-16 border border-primary/10 text-center max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-slate-800 dark:text-white mb-6">বিশেষ ধন্যবাদ</h2>
+      <p class="text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+        আমরা সেই সকল ডেভেলপার, আলেম এবং স্বেচ্ছাসেবীদের ধন্যবাদ জানাই যারা এই সকল API এবং তথ্যগুলো সবার জন্য উন্মুক্ত করেছেন। তাদের পরিশ্রমের ফলেই আজ আমরা ইসলামের শুদ্ধ জ্ঞান সহজে সবার কাছে পৌঁছে দিতে পারছি। আল্লাহ তাদের উত্তম প্রতিদান দান করুন। আমীন।
+      </p>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="js/components.js"></script>
+</body>
+</html>

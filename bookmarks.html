@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>আপনার বুকমার্ক - DeenIslam</title>
+  <link rel="icon" type="image/x-icon" href="favicon/deenislam.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&family=Amiri&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/theme.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { primary: '#059669', secondary: '#d97706' },
+          fontFamily: { bengali: ['Noto Sans Bengali', 'sans-serif'], arabic: ['Amiri', 'serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 flex flex-col min-h-screen font-bengali">
+  <div id="navbar-placeholder"></div>
+
+  <main class="container mx-auto px-6 py-12 flex-grow">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-extrabold text-slate-800 dark:text-white mb-4">আপনার বুকমার্কসমূহ</h1>
+      <p class="text-slate-600 dark:text-slate-400">আপনার সংরক্ষিত সকল কুরআন আয়াত, সূরা, হাদিস এবং ভিডিও এখানে পাওয়া যাবে।</p>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="flex justify-center mb-10 overflow-x-auto no-scrollbar">
+      <div class="inline-flex bg-white dark:bg-slate-900 p-1.5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+        <button onclick="showSection('quran')" class="tab-btn px-6 py-2.5 rounded-xl font-bold transition-all bg-primary text-white" id="tab-quran">কুরআন</button>
+        <button onclick="showSection('hadith')" class="tab-btn px-6 py-2.5 rounded-xl font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800" id="tab-hadith">হাদিস</button>
+        <button onclick="showSection('media')" class="tab-btn px-6 py-2.5 rounded-xl font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800" id="tab-media">মিডিয়া</button>
+      </div>
+    </div>
+
+    <!-- Sections -->
+    <div id="quran-section" class="space-y-6 max-w-4xl mx-auto"></div>
+    <div id="hadith-section" class="space-y-6 max-w-4xl mx-auto hidden"></div>
+    <div id="media-section" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 hidden"></div>
+
+    <div id="empty-state" class="hidden text-center py-20">
+      <div class="w-20 h-20 bg-slate-100 dark:bg-slate-900 text-slate-300 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg>
+      </div>
+      <h3 class="text-xl font-bold text-slate-600 dark:text-slate-400">এখনো কোনো বুকমার্ক নেই</h3>
+      <p class="text-slate-500 mt-2">আপনার প্রিয় বিষয়গুলো খুঁজে বুকমার্ক বাটনে ক্লিক করুন।</p>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="js/components.js"></script>
+  <script>
+    function showSection(section) {
+        document.getElementById('quran-section').classList.add('hidden');
+        document.getElementById('hadith-section').classList.add('hidden');
+        document.getElementById('media-section').classList.add('hidden');
+        document.getElementById(section + '-section').classList.remove('hidden');
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('bg-primary', 'text-white');
+            btn.classList.add('text-slate-500');
+        });
+        document.getElementById('tab-' + section).classList.add('bg-primary', 'text-white');
+        document.getElementById('tab-' + section).classList.remove('text-slate-500');
+        
+        loadBookmarks(section);
+    }
+
+    function loadBookmarks(type) {
+        const bookmarks = JSON.parse(localStorage.getItem('deen_bookmarks') || '[]');
+        const container = document.getElementById(type + '-section');
+        container.innerHTML = '';
+        
+        const filtered = bookmarks.filter(b => b.type === type);
+        
+        if (filtered.length === 0) {
+            document.getElementById('empty-state').classList.remove('hidden');
+            return;
+        }
+        document.getElementById('empty-state').classList.add('hidden');
+
+        filtered.forEach(item => {
+            const card = document.createElement('div');
+            if (type === 'media') {
+                const thumbUrl = `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`;
+                card.className = "bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 group";
+                card.innerHTML = `
+                    <div class="aspect-video relative overflow-hidden cursor-pointer" onclick="window.location.href='media.html?id=${item.id}'">
+                        <img src="${thumbUrl}" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-xl">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-slate-800 dark:text-white line-clamp-1 mb-4">${item.title}</h3>
+                        <button onclick="removeBookmark('${item.key}')" class="w-full py-2 bg-red-50 dark:bg-red-900/20 text-red-500 rounded-xl font-bold text-sm hover:bg-red-500 hover:text-white transition-all">বুকমার্ক মুছুন</button>
+                    </div>
+                `;
+            } else {
+                card.className = "bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-800 relative group";
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="px-4 py-1.5 bg-emerald-50 dark:bg-emerald-900/30 text-primary rounded-full text-xs font-bold uppercase tracking-widest">${item.subType}</span>
+                        <button onclick="removeBookmark('${item.key}')" class="text-slate-300 hover:text-red-500 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg>
+                        </button>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-4">${item.title}</h3>
+                    ${item.arabic ? `<p class="text-right text-2xl font-arabic leading-loose text-slate-800 dark:text-white mb-6" dir="rtl">${item.arabic}</p>` : ''}
+                    <p class="text-slate-600 dark:text-slate-400 mb-8 italic leading-relaxed line-clamp-3">${item.text}</p>
+                    <a href="${item.url}" class="inline-flex items-center text-primary font-bold hover:underline">বিস্তারিত পড়ুন <span class="ml-2">→</span></a>
+                `;
+            }
+            container.appendChild(card);
+        });
+    }
+
+    function removeBookmark(key) {
+        let bookmarks = JSON.parse(localStorage.getItem('deen_bookmarks') || '[]');
+        bookmarks = bookmarks.filter(b => b.key !== key);
+        localStorage.setItem('deen_bookmarks', JSON.stringify(bookmarks));
+        
+        // Refresh active section
+        const activeTab = document.querySelector('.tab-btn.bg-primary').id.split('-')[1];
+        loadBookmarks(activeTab);
+    }
+
+    // Initial load
+    showSection('quran');
+  </script>
+</body>
+</html>

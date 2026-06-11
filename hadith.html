@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>হাদিস শরীফ - সকল বিশুদ্ধ হাদিস গ্রন্থ | DeenIslam</title>
+  <link rel="icon" type="image/x-icon" href="favicon/deenislam.ico">
+  <meta name="description" content="বুখারী, মুসলিমসহ সকল বিশুদ্ধ হাদিস গ্রন্থের বাংলা অনুবাদ অনলাইনে পড়ুন।">
+  <meta name="keywords" content="হাদিস, সহীহ বুখারী, হাদিস বাংলা, Hadith Bangla, Sahih Bukhari Bangla">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/theme.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#059669', // Emerald 600
+            secondary: '#d97706', // Amber 600
+          },
+          fontFamily: {
+            bengali: ['Noto Sans Bengali', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 flex flex-col min-h-screen font-bengali">
+
+  <!-- Navbar -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 py-16 flex-grow">
+    <div class="text-center mb-16">
+      <h1 class="text-4xl font-extrabold text-slate-800 dark:text-white mb-4 tracking-tight">হাদিস গ্রন্থসমূহ</h1>
+      <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto italic">রাসূলুল্লাহ (সা.)-এর সুন্নাহ ও দিকনির্দেশনার নির্ভরযোগ্য সংকলন।</p>
+      <div class="w-24 h-1.5 bg-primary mx-auto rounded-full mt-6"></div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="max-w-4xl mx-auto mb-20 bg-white dark:bg-slate-900 p-8 md:p-10 rounded-[3rem] shadow-xl border border-emerald-50 dark:border-slate-800">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="md:col-span-1">
+                <label class="block text-sm font-bold text-slate-500 mb-2 ml-4">গ্রন্থ নির্বাচন করুন</label>
+                <div class="relative group">
+                    <select id="search-book" class="w-full p-4 pr-12 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 dark:focus:ring-emerald-900/20 focus:border-primary transition-all font-bold text-slate-700 dark:text-slate-300 appearance-none cursor-pointer">
+                        <option value="bukhari">সহীহ বুখারী</option>
+                        <option value="muslim">সহীহ মুসলিম</option>
+                        <option value="abudawud">সুনানে আবু দাউদ</option>
+                        <option value="tirmidhi">জামে আত-তিরমিযী</option>
+                        <option value="nasai">সুনানে আন-নাসায়ী</option>
+                        <option value="ibnmajah">সুনানে ইবনে মাজাহ</option>
+                        <option value="malik">মুয়াত্তা ইমাম মালিক</option>
+                    </select>
+                    <div class="absolute right-5 top-1/2 transform -translate-y-1/2 pointer-events-none text-slate-400 group-hover:text-primary transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-sm font-bold text-slate-500 mb-2 ml-4">হাদিস নম্বর বা শব্দ দিয়ে খুঁজুন</label>
+                <div class="relative">
+                    <input type="text" id="search-query" placeholder="যেমন: ১ অথবা নিয়ত..." class="w-full p-4 pl-12 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 dark:focus:ring-emerald-900/20 focus:border-primary transition-all font-medium text-slate-700 dark:text-slate-200">
+                    <span class="absolute left-5 top-1/2 transform -translate-y-1/2 text-slate-400">🔍</span>
+                    <button id="global-search-btn" class="absolute right-2 top-2 bottom-2 px-6 bg-primary text-white rounded-xl font-bold hover:bg-emerald-700 transition-all shadow-lg active:scale-95">
+                        খুঁজুন
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Sahih Bukhari -->
+      <a href="hadith-view.html?book=bukhari" class="bg-white p-10 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl hover:border-emerald-200 transition-all duration-300 group text-center">
+        <div class="w-16 h-16 bg-emerald-50 text-primary rounded-2xl flex items-center justify-center font-bold text-xl mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+          ১
+        </div>
+        <h2 class="text-2xl font-bold mb-4 text-slate-800">সহীহ বুখারী</h2>
+        <p class="text-slate-600 text-sm leading-relaxed mb-6">ইমাম বুখারী (রহঃ) কর্তৃক সংকলিত সবচেয়ে নির্ভরযোগ্য হাদিস গ্রন্থ।</p>
+        <span class="inline-block px-6 py-2 bg-emerald-50 text-primary font-bold rounded-full group-hover:bg-primary group-hover:text-white transition-all">বিস্তারিত</span>
+      </a>
+
+      <!-- Sahih Muslim -->
+      <a href="hadith-view.html?book=muslim" class="bg-white p-10 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl hover:border-emerald-200 transition-all duration-300 group text-center">
+        <div class="w-16 h-16 bg-emerald-50 text-primary rounded-2xl flex items-center justify-center font-bold text-xl mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+          ২
+        </div>
+        <h2 class="text-2xl font-bold mb-4 text-slate-800">সহীহ মুসলিম</h2>
+        <p class="text-slate-600 text-sm leading-relaxed mb-6">ইমাম মুসলিম (রহঃ) সংকলিত বিশুদ্ধ হাদিসের অন্যতম আধার।</p>
+        <span class="inline-block px-6 py-2 bg-emerald-50 text-primary font-bold rounded-full group-hover:bg-primary group-hover:text-white transition-all">বিস্তারিত</span>
+      </a>
+
+      <!-- Sunan Abu Dawood -->
+      <a href="hadith-view.html?book=abudawud" class="bg-white p-10 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl hover:border-emerald-200 transition-all duration-300 group text-center">
+        <div class="w-16 h-16 bg-emerald-50 text-primary rounded-2xl flex items-center justify-center font-bold text-xl mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+          ৩
+        </div>
+        <h2 class="text-2xl font-bold mb-4 text-slate-800">সুনানে আবু দাউদ</h2>
+        <p class="text-slate-600 text-sm leading-relaxed mb-6">ইমাম আবু দাউদ (রহঃ) সংকলিত সুনান গ্রন্থসমূহের মধ্যে অন্যতম।</p>
+        <span class="inline-block px-6 py-2 bg-emerald-50 text-primary font-bold rounded-full group-hover:bg-primary group-hover:text-white transition-all">বিস্তারিত</span>
+      </a>
+
+      <!-- Jami' at-Tirmidhi -->
+      <a href="hadith-view.html?book=tirmidhi" class="bg-white p-10 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl hover:border-emerald-200 transition-all duration-300 group text-center">
+        <div class="w-16 h-16 bg-emerald-50 text-primary rounded-2xl flex items-center justify-center font-bold text-xl mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+          ৪
+        </div>
+        <h2 class="text-2xl font-bold mb-4 text-slate-800">জামে আত-তিরমিযী</h2>
+        <p class="text-slate-600 text-sm leading-relaxed mb-6">ইমাম তিরমিযী (রহঃ) সংকলিত হাদিসের একটি গুরুত্বপূর্ণ কোষ।</p>
+        <span class="inline-block px-6 py-2 bg-emerald-50 text-primary font-bold rounded-full group-hover:bg-primary group-hover:text-white transition-all">বিস্তারিত</span>
+      </a>
+
+      <!-- Sunan an-Nasa'i -->
+      <a href="hadith-view.html?book=nasai" class="bg-white p-10 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl hover:border-emerald-200 transition-all duration-300 group text-center">
+        <div class="w-16 h-16 bg-emerald-50 text-primary rounded-2xl flex items-center justify-center font-bold text-xl mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+          ৫
+        </div>
+        <h2 class="text-2xl font-bold mb-4 text-slate-800">সুনানে আন-নাসায়ী</h2>
+        <p class="text-slate-600 text-sm leading-relaxed mb-6">ইমাম নাসায়ী (রহঃ) সংকলিত সুনানে কুবরা ও সুগরা গ্রন্থ।</p>
+        <span class="inline-block px-6 py-2 bg-emerald-50 text-primary font-bold rounded-full group-hover:bg-primary group-hover:text-white transition-all">বিস্তারিত</span>
+      </a>
+
+      <!-- Sunan Ibn Majah -->
+      <a href="hadith-view.html?book=ibnmajah" class="bg-white p-10 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl hover:border-emerald-200 transition-all duration-300 group text-center">
+        <div class="w-16 h-16 bg-emerald-50 text-primary rounded-2xl flex items-center justify-center font-bold text-xl mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+          ৬
+        </div>
+        <h2 class="text-2xl font-bold mb-4 text-slate-800">সুনানে ইবনে মাজাহ</h2>
+        <p class="text-slate-600 text-sm leading-relaxed mb-6">সুনান গ্রন্থসমূহের মধ্যে এটি একটি অনন্য সংকলন।</p>
+        <span class="inline-block px-6 py-2 bg-emerald-50 text-primary font-bold rounded-full group-hover:bg-primary group-hover:text-white transition-all">বিস্তারিত</span>
+      </a>
+
+      <!-- Muwatta Malik -->
+      <a href="hadith-view.html?book=malik" class="bg-white p-10 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl hover:border-emerald-200 transition-all duration-300 group text-center">
+        <div class="w-16 h-16 bg-emerald-50 text-primary rounded-2xl flex items-center justify-center font-bold text-xl mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+          ৭
+        </div>
+        <h2 class="text-2xl font-bold mb-4 text-slate-800">মুয়াত্তা ইমাম মালিক</h2>
+        <p class="text-slate-600 text-sm leading-relaxed mb-6">ইমাম মালিক (রহঃ) কর্তৃক সংকলিত অন্যতম প্রাচীন হাদিস গ্রন্থ।</p>
+        <span class="inline-block px-6 py-2 bg-emerald-50 text-primary font-bold rounded-full group-hover:bg-primary group-hover:text-white transition-all">বিস্তারিত</span>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+  <script src="js/components.js"></script>
+  <script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    }
+
+    const searchBtn = document.getElementById('global-search-btn');
+    const searchBook = document.getElementById('search-book');
+    const searchQuery = document.getElementById('search-query');
+
+    const performSearch = () => {
+        const book = searchBook.value;
+        const query = searchQuery.value.trim();
+        if (!query) return;
+
+        // Helper to convert Bengali digits to English
+        const toEnglishNumerals = (str) => {
+            const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+            return str.replace(/[০-৯]/g, d => bengaliDigits.indexOf(d));
+        };
+
+        const engQuery = toEnglishNumerals(query);
+        const isNumber = /^\d+$/.test(engQuery.replace(/\D/g, ''));
+
+        if (isNumber) {
+            window.location.href = `hadith-view.html?book=${book}&num=${engQuery.replace(/\D/g, '')}`;
+        } else {
+            window.location.href = `hadith-view.html?book=${book}&q=${encodeURIComponent(query)}`;
+        }
+    };
+
+    searchBtn.onclick = performSearch;
+    searchQuery.onkeydown = (e) => { if (e.key === 'Enter') performSearch(); };
+  </script>
+
+</body>
+</html>
