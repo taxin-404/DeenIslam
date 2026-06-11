@@ -57,16 +57,6 @@ Since this is a static web application, you can run it locally without any compl
 
 ---
 
-## 💡 Planned Improvements
-
-- [ ] **PWA Support:** Make the app available offline as a Progressive Web App.
-- [ ] **Build System:** Integrate Vite for optimized builds and asset minification.
-- [ ] **Search Functionality:** Implement a global search for Surahs and Hadiths.
-- [ ] **Qibla Finder:** Add a compass feature to find the Qibla direction.
-- [ ] **Audio Recitation:** Integrate audio players for Quranic verses.
-
----
-
 ## 🤝 Contributing
 
 Contributions are welcome! If you'd like to improve DeenIslam, please follow these steps:
