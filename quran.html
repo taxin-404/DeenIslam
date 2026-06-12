@@ -513,7 +513,7 @@
           const idMatch = s.id === extractedNumber || s.id.toString().startsWith(extractedNumber.toString());
           const explicitAyahSearch = rawQuery.includes('আয়াত') || rawQuery.includes('ayah');
           const containsAyah = s.verses >= extractedNumber;
-          const ayahMatch = explicitAyahSearch ? containsAyah : (extractedNumber > 114 && containsAyah);
+          const ayahMatch = containsAyah && (explicitAyahSearch || idMatch || nameMatch || extractedNumber > 114);
           
           if (ayahMatch) matchedAyahs[s.id] = extractedNumber;
           
