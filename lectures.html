@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>আলোচনা ও বয়ান - ইসলামিক ভিডিও | DeenIslam</title>
+  <link rel="icon" type="image/x-icon" href="favicon/deenislam.ico">
+  <meta name="description" content="ইসলামিক আলোচনা ও বয়ানের ভিডিও সংগ্রহ।">
+  <meta name="keywords" content="আলোচনা, বয়ান, Lectures, Islamic Media">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/theme.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#059669',
+            secondary: '#d97706',
+          },
+          fontFamily: {
+            bengali: ['Noto Sans Bengali', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .video-card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .video-card-hover:hover { transform: translateY(-8px); }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #059669; border-radius: 10px; }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slide-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fade-in 0.4s ease-out; }
+    .animate-slide-up { animation: slide-up 0.5s ease-out; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 flex flex-col min-h-screen font-bengali transition-colors duration-300">
+
+  <div id="navbar-placeholder"></div>
+
+  <header class="relative py-20 overflow-hidden">
+    <div class="absolute top-6 left-6 z-20">
+      <a href="media.html" class="group inline-flex items-center gap-2 bg-white dark:bg-slate-900 hover:bg-primary text-slate-700 dark:text-slate-200 hover:text-white font-bold px-4 py-2.5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-primary transition-all duration-300 text-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
+        <span>পেছনে</span>
+      </a>
+    </div>
+    <div class="container mx-auto px-6 relative z-10 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-4 tracking-tight">আলোচনা ও বয়ান</h1>
+      <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto italic text-lg">ইসলামিক আলোচনা ও বয়ানের ভিডিও সংগ্রহ।</p>
+      <div class="w-24 h-1.5 bg-primary mx-auto rounded-full mt-8 shadow-lg shadow-primary/20"></div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-6 py-8 flex-grow">
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
+      <div class="relative w-full md:w-80 group">
+        <input type="text" id="media-search" placeholder="ভিডিও খুঁজুন..." class="w-full p-3.5 pl-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 dark:focus:ring-emerald-900/20 focus:border-primary transition-all shadow-sm font-medium text-slate-700 dark:text-slate-200">
+        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">🔍</span>
+      </div>
+    </div>
+
+    <div id="media-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    </div>
+
+    <div id="pagination-container" class="flex justify-center items-center space-x-3 mt-16 mb-8">
+    </div>
+
+    <div id="empty-state" class="hidden text-center py-20">
+      <div class="w-20 h-20 bg-slate-100 dark:bg-slate-900 text-slate-300 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+      </div>
+      <h3 class="text-xl font-bold text-slate-600 dark:text-slate-400">দুঃখিত, কোনো ভিডিও পাওয়া যায়নি</h3>
+      <button onclick="resetFilters()" class="mt-4 text-primary font-bold hover:underline">সব ভিডিও দেখুন</button>
+    </div>
+
+  </main>
+
+  <div id="video-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-10 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-sm" onclick="closeModal()"></div>
+    <div class="relative w-full max-w-5xl bg-black rounded-3xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300" id="modal-content">
+      <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center backdrop-blur-md transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+      <div class="aspect-video">
+        <iframe id="modal-iframe" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="p-6 bg-white dark:bg-slate-900">
+        <h3 id="modal-title" class="text-xl font-bold text-slate-800 dark:text-white line-clamp-1">ভিডিও টাইটেল</h3>
+        <p id="modal-category" class="text-primary text-sm font-bold mt-1 uppercase tracking-widest">আলোচনা ও বয়ান</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="js/components.js"></script>
+  <script>
+    const lectureVideos = [
+      { id: '4MNqOfrz29g', title: 'আলোচনা ও বয়ান - পর্ব ১', category: 'lecture' },
+      { id: '_t6MwPSw15w', title: 'আলোচনা ও বয়ান - পর্ব ২', category: 'lecture' },
+      { id: 'kq2rcR5pRhI', title: 'আলোচনা ও বয়ান - পর্ব ৩', category: 'lecture' },
+      { id: '4NlKj7Saogc', title: 'আলোচনা ও বয়ান - পর্ব ৪', category: 'lecture' },
+      { id: 'UUXju3OCHkc', title: 'আলোচনা ও বয়ান - পর্ব ৫', category: 'lecture' },
+      { id: 'NNa7odii4GI', title: 'আলোচনা ও বয়ান - পর্ব ৬', category: 'lecture' },
+      { id: 'oLrTGNUf5iI', title: 'আলোচনা ও বয়ান - পর্ব ৭', category: 'lecture' },
+      { id: 'TECwN_W2dqY', title: 'আলোচনা ও বয়ান - পর্ব ৮', category: 'lecture' },
+      { id: 'IlWgOyQd7Ko', title: 'আলোচনা ও বয়ান - পর্ব ৯', category: 'lecture' },
+      { id: 'Q3VtCVFfze4', title: 'আলোচনা ও বয়ান - পর্ব ১০', category: 'lecture' },
+      { id: 'OG-1FfOwzEg', title: 'আলোচনা ও বয়ান - পর্ব ১১', category: 'lecture' },
+      { id: 'P7THrkoSEEI', title: 'আলোচনা ও বয়ান - পর্ব ১২', category: 'lecture' },
+      { id: 'eGEr9ZZ3TAw', title: 'আলোচনা ও বয়ান - পর্ব ১৩', category: 'lecture' },
+      { id: 'TvnOngfc_h0', title: 'আলোচনা ও বয়ান - পর্ব ১৪', category: 'lecture' },
+      { id: '0yAvLQXrQ_Q', title: 'আলোচনা ও বয়ান - পর্ব ১৫', category: 'lecture' },
+      { id: 'f8V1ScLzOxY', title: 'আলোচনা ও বয়ান - পর্ব ১৬', category: 'lecture' },
+      { id: '640R4vz4S_Y', title: 'আলোচনা ও বয়ান - পর্ব ১৭', category: 'lecture' },
+      { id: '6OEBxmOyMgE', title: 'আলোচনা ও বয়ান - পর্ব ১৮', category: 'lecture' },
+      { id: 'W_Pf10psvi8', title: 'আলোচনা ও বয়ান - পর্ব ১৯', category: 'lecture' },
+      { id: '14nG4FbnArw', title: 'আলোচনা ও বয়ান - পর্ব ২০', category: 'lecture' },
+      { id: '8Tm5NFiCaNM', title: 'আলোচনা ও বয়ান - পর্ব ২১', category: 'lecture' },
+      { id: 'yv_vRCScI28', title: 'আলোচনা ও বয়ান - পর্ব ২২', category: 'lecture' },
+      { id: 'GDf9TJn_CF8', title: 'আলোচনা ও বয়ান - পর্ব ২৩', category: 'lecture' },
+      { id: '1IyWbT5IgFQ', title: 'আলোচনা ও বয়ান - পর্ব ২৪', category: 'lecture' },
+      { id: 'q8we0VuWGGU', title: 'আলোচনা ও বয়ান - পর্ব ২৫', category: 'lecture' },
+      { id: 'ZZyecjNQ2mo', title: 'আলোচনা ও বয়ান - পর্ব ২৬', category: 'lecture' },
+      { id: 'B4ptZjHQE3c', title: 'আলোচনা ও বয়ান - পর্ব ২৭', category: 'lecture' },
+      { id: 'y2w7WXqmI-0', title: 'আলোচনা ও বয়ান - পর্ব ২৮', category: 'lecture' },
+      { id: 'XkyV7-2MmPU', title: 'আলোচনা ও বয়ান - পর্ব ২৯', category: 'lecture' },
+      { id: 'errwjtbdDWo', title: 'আলোচনা ও বয়ান - পর্ব ৩০', category: 'lecture' },
+      { id: 'R8PJXoBeQ4Q', title: 'আলোচনা ও বয়ান - পর্ব ৩১', category: 'lecture' },
+      { id: 'FClkxLgmyRA', title: 'আলোচনা ও বয়ান - পর্ব ৩২', category: 'lecture' },
+      { id: '1cXM7mQ9siI', title: 'আলোচনা ও বয়ান - পর্ব ৩৩', category: 'lecture' },
+      { id: 'n9fKyuo7d2E', title: 'আলোচনা ও বয়ান - পর্ব ৩৪', category: 'lecture' },
+      { id: '9IvDyCtuMz4', title: 'আলোচনা ও বয়ান - পর্ব ৩৫', category: 'lecture' },
+      { id: 'qY90Gi1XrSA', title: 'আলোচনা ও বয়ান - পর্ব ৩৬', category: 'lecture' },
+      { id: 'G8ljaRJ3Dd4', title: 'আলোচনা ও বয়ান - পর্ব ৩৭', category: 'lecture' },
+      { id: 'PLMo1pQ-4AM', title: 'আলোচনা ও বয়ান - পর্ব ৩৮', category: 'lecture' },
+      { id: 'ik0axWIAxVY', title: 'আলোচনা ও বয়ান - পর্ব ৩৯', category: 'lecture' },
+      { id: 'PKojaVr4vaw', title: 'আলোচনা ও বয়ান - পর্ব ৪০', category: 'lecture' },
+      { id: 'JjQBmGNohkE', title: 'আলোচনা ও বয়ান - পর্ব ৪১', category: 'lecture' },
+      { id: 'PNcAgBuemN0', title: 'আলোচনা ও বয়ান - পর্ব ৪২', category: 'lecture' },
+      { id: 'xWSxneQxERg', title: 'আলোচনা ও বয়ান - পর্ব ৪৩', category: 'lecture' },
+      { id: 'X5Op5Pu4Gz8', title: 'আলোচনা ও বয়ান - পর্ব ৪৪', category: 'lecture' },
+      { id: 'J6x9oKV3h1E', title: 'আলোচনা ও বয়ান - পর্ব ৪৫', category: 'lecture' },
+      { id: 'zZM9C6kHZok', title: 'আলোচনা ও বয়ান - পর্ব ৪৬', category: 'lecture' },
+      { id: '5iON0Om7mxI', title: 'আলোচনা ও বয়ান - পর্ব ৪৭', category: 'lecture' },
+      { id: 't6HPg3V3So0', title: 'আলোচনা ও বয়ান - পর্ব ৪৮', category: 'lecture' },
+      { id: 'OBuUN7YM1GE', title: 'আলোচনা ও বয়ান - পর্ব ৪৯', category: 'lecture' },
+      { id: 'Hi6tmpIEXg4', title: 'আলোচনা ও বয়ান - পর্ব ৫০', category: 'lecture' },
+      { id: 'VLL_6_RtNus', title: 'আলোচনা ও বয়ান - পর্ব ৫১', category: 'lecture' },
+      { id: 'rFvYwuTN7WY', title: 'আলোচনা ও বয়ান - পর্ব ৫২', category: 'lecture' },
+      { id: 'X1zFHWiP2Y0', title: 'আলোচনা ও বয়ান - পর্ব ৫৩', category: 'lecture' },
+      { id: '4fHvizV_9xA', title: 'আলোচনা ও বয়ান - পর্ব ৫৪', category: 'lecture' },
+      { id: 'Yy0yHkk3Xww', title: 'আলোচনা ও বয়ান - পর্ব ৫৫', category: 'lecture' },
+      { id: '7-xbejr91HQ', title: 'আলোচনা ও বয়ান - পর্ব ৫৬', category: 'lecture' },
+      { id: 'qSXubdf-_SI', title: 'আলোচনা ও বয়ান - পর্ব ৫৭', category: 'lecture' },
+      { id: 'd_Irm7ztrs0', title: 'আলোচনা ও বয়ান - পর্ব ৫৮', category: 'lecture' },
+      { id: 'ifYjHxh9W0M', title: 'আলোচনা ও বয়ান - পর্ব ৫৯', category: 'lecture' },
+      { id: '6jxRDbqDxlI', title: 'আলোচনা ও বয়ান - পর্ব ৬০', category: 'lecture' },
+      { id: 'WTq5zq2bH44', title: 'আলোচনা ও বয়ান - পর্ব ৬১', category: 'lecture' },
+      { id: 'RJlNtFEMbHU', title: 'আলোচনা ও বয়ান - পর্ব ৬২', category: 'lecture' },
+      { id: 'nDksHnaRmRI', title: 'আলোচনা ও বয়ান - পর্ব ৬৩', category: 'lecture' },
+      { id: '9yWkxH6A7Ek', title: 'আলোচনা ও বয়ান - পর্ব ৬৪', category: 'lecture' },
+      { id: 'o_ZAzHuvVSA', title: 'আলোচনা ও বয়ান - পর্ব ৬৫', category: 'lecture' },
+      { id: '0r7aWwFhhoM', title: 'আলোচনা ও বয়ান - পর্ব ৬৬', category: 'lecture' },
+      { id: '0NyBhGx4W5c', title: 'আলোচনা ও বয়ান - পর্ব ৬৭', category: 'lecture' },
+      { id: 'kGUV0MUQnxc', title: 'আলোচনা ও বয়ান - পর্ব ৬৮', category: 'lecture' },
+      { id: 't2pSiH_KSDg', title: 'আলোচনা ও বয়ান - পর্ব ৬৯', category: 'lecture' },
+      { id: 'B6hPF2vn7gY', title: 'আলোচনা ও বয়ান - পর্ব ৭০', category: 'lecture' },
+      { id: 'OQ98nhJuvyM', title: 'আলোচনা ও বয়ান - পর্ব ৭১', category: 'lecture' },
+      { id: 'B0V8dKoLZgA', title: 'আলোচনা ও বয়ান - পর্ব ৭২', category: 'lecture' },
+      { id: 'EAENdLenCys', title: 'আলোচনা ও বয়ান - পর্ব ৭৩', category: 'lecture' },
+      { id: 'bnzDEhyeI7c', title: 'আলোচনা ও বয়ান - পর্ব ৭৪', category: 'lecture' },
+      { id: 'JYd3_Q5a70w', title: 'আলোচনা ও বয়ান - পর্ব ৭৫', category: 'lecture' },
+      { id: '2o-7SpBlfu8', title: 'আলোচনা ও বয়ান - পর্ব ৭৬', category: 'lecture' },
+      { id: '1YfSFfmCg5o', title: 'আলোচনা ও বয়ান - পর্ব ৭৭', category: 'lecture' },
+      { id: 'o47mr8v-xYI', title: 'আলোচনা ও বয়ান - পর্ব ৭৮', category: 'lecture' },
+      { id: 'lL-BPMoF0y8', title: 'আলোচনা ও বয়ান - পর্ব ৭৯', category: 'lecture' },
+      { id: 'L29Igj8MfsU', title: 'আলোচনা ও বয়ান - পর্ব ৮০', category: 'lecture' },
+      { id: '2NYiimq6D1E', title: 'আলোচনা ও বয়ান - পর্ব ৮১', category: 'lecture' },
+      { id: 'hCLcMvAdbTY', title: 'আলোচনা ও বয়ান - পর্ব ৮২', category: 'lecture' },
+      { id: 'wgDX_IWfzM4', title: 'আলোচনা ও বয়ান - পর্ব ৮৩', category: 'lecture' },
+      { id: 'WpT7wsT5yRg', title: 'আলোচনা ও বয়ান - পর্ব ৮৪', category: 'lecture' },
+      { id: 'xuYyLovgTOk', title: 'আলোচনা ও বয়ান - পর্ব ৮৫', category: 'lecture' },
+      { id: 'vhZQ_-LWzYk', title: 'আলোচনা ও বয়ান - পর্ব ৮৬', category: 'lecture' },
+      { id: 'zC-szyFhG-k', title: 'আলোচনা ও বয়ান - পর্ব ৮৭', category: 'lecture' },
+      { id: 'VIIjK_QPYW0', title: 'আলোচনা ও বয়ান - পর্ব ৮৮', category: 'lecture' },
+      { id: 'iHg9K4gIwu8', title: 'আলোচনা ও বয়ান - পর্ব ৮৯', category: 'lecture' },
+      { id: '2KADX7mKmFI', title: 'আলোচনা ও বয়ান - পর্ব ৯০', category: 'lecture' },
+      { id: '-mSuK3vJf-E', title: 'আলোচনা ও বয়ান - পর্ব ৯১', category: 'lecture' },
+      { id: 'pDnDbOZ8Xhs', title: 'আলোচনা ও বয়ান - পর্ব ৯২', category: 'lecture' },
+      { id: '0BtiIFHD0_s', title: 'আলোচনা ও বয়ান - পর্ব ৯৩', category: 'lecture' },
+      { id: '2q98Vw3J_7I', title: 'আলোচনা ও বয়ান - পর্ব ৯৪', category: 'lecture' },
+      { id: 'CMvkgt0JDiw', title: 'আলোচনা ও বয়ান - পর্ব ৯৫', category: 'lecture' },
+      { id: 'kqftOcEcn_4', title: 'আলোচনা ও বয়ান - পর্ব ৯৬', category: 'lecture' },
+      { id: 'LRsKMxownrU', title: 'আলোচনা ও বয়ান - পর্ব ৯৭', category: 'lecture' },
+      { id: 'uA2dB2Ty2sU', title: 'আলোচনা ও বয়ান - পর্ব ৯৮', category: 'lecture' },
+      { id: 'xJr8n77CkEw', title: 'আলোচনা ও বয়ান - পর্ব ৯৯', category: 'lecture' }
+    ];
+
+    const grid = document.getElementById('media-grid');
+    const paginationContainer = document.getElementById('pagination-container');
+    const modal = document.getElementById('video-modal');
+    const modalIframe = document.getElementById('modal-iframe');
+    const modalContent = document.getElementById('modal-content');
+    const searchInput = document.getElementById('media-search');
+
+    let currentPage = 1;
+    const itemsPerPage = 12;
+    let filteredItems = [...lectureVideos];
+
+    function renderMedia() {
+      grid.innerHTML = '';
+
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const paginatedItems = filteredItems.slice(startIndex, endIndex);
+
+      if (paginatedItems.length === 0) {
+        document.getElementById('empty-state').classList.remove('hidden');
+        paginationContainer.innerHTML = '';
+        return;
+      }
+      document.getElementById('empty-state').classList.add('hidden');
+
+      paginatedItems.forEach((item) => {
+        const thumbUrl = `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`;
+        const card = document.createElement('div');
+        card.className = "video-card-hover bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 group cursor-pointer";
+        card.onclick = () => openModal(item);
+        card.innerHTML = `
+          <div class="aspect-video relative overflow-hidden">
+            <img src="${thumbUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <div class="w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl transform scale-75 group-hover:scale-100 transition-transform duration-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+            <div class="absolute top-4 left-4 flex flex-col space-y-2">
+              <span class="px-3 py-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-[10px] font-bold text-primary rounded-lg uppercase tracking-wider shadow-sm border border-emerald-50 dark:border-slate-800">আলোচনা ও বয়ান</span>
+            </div>
+            <div class="absolute top-4 right-4">
+              <button onclick="handleMediaBookmark(event, ${JSON.stringify(item).replace(/"/g, '&quot;')})" class="w-10 h-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-primary rounded-xl flex items-center justify-center shadow-sm border border-emerald-50 dark:border-slate-800 hover:bg-primary hover:text-white transition-all bookmark-btn" data-key="media_${item.id}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="${window.isBookmarked(`media_${item.id}`) ? 'currentColor' : 'none'}" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg>
+              </button>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-bold text-slate-800 dark:text-white text-sm md:text-base line-clamp-2 leading-relaxed group-hover:text-primary transition-colors">${item.title}</h3>
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                এখন দেখুন
+              </span>
+              <div class="w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      renderPagination();
+    }
+
+    function renderPagination() {
+      paginationContainer.innerHTML = '';
+      const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+      if (totalPages <= 1) return;
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = window.toBengaliNumerals ? window.toBengaliNumerals(i) : i;
+        btn.className = `w-12 h-12 rounded-2xl font-bold transition-all duration-300 ${currentPage === i ? 'bg-primary text-white shadow-lg shadow-primary/30 scale-110' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 border border-slate-100 dark:border-slate-800'}`;
+        btn.onclick = () => { currentPage = i; renderMedia(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+        paginationContainer.appendChild(btn);
+      }
+    }
+
+    function openModal(item) {
+      modalIframe.src = `https://www.youtube.com/embed/${item.id}?autoplay=1`;
+      document.getElementById('modal-title').innerText = item.title;
+      document.getElementById('modal-category').innerText = 'আলোচনা ও বয়ান';
+      modal.classList.remove('pointer-events-none', 'opacity-0');
+      modal.classList.add('opacity-100');
+      modalContent.classList.remove('scale-95');
+      modalContent.classList.add('scale-100');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modalContent.classList.add('scale-95');
+      modalContent.classList.remove('scale-100');
+      setTimeout(() => { modalIframe.src = ''; }, 300);
+      document.body.style.overflow = '';
+    }
+
+    function applyFilters() {
+      const query = searchInput.value.toLowerCase().trim();
+      filteredItems = lectureVideos.filter(item => item.title.toLowerCase().includes(query));
+      currentPage = 1;
+      renderMedia();
+    }
+
+    function resetFilters() {
+      searchInput.value = '';
+      applyFilters();
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+
+    window.handleMediaBookmark = (event, item) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const key = `media_${item.id}`;
+      const data = { key: key, type: 'media', id: item.id, title: item.title, url: `lectures.html?id=${item.id}` };
+      const isAdded = window.toggleBookmark(data);
+      document.querySelectorAll(`.bookmark-btn[data-key="${key}"]`).forEach(btn => {
+        const svg = btn.querySelector('svg');
+        svg.setAttribute('fill', isAdded ? 'currentColor' : 'none');
+      });
+    };
+
+    renderMedia();
+  </script>
+</body>
+</html>

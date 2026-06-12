@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>জীবনী - ইসলামিক ব্যক্তিত্বের ভিডিও | DeenIslam</title>
+  <link rel="icon" type="image/x-icon" href="favicon/deenislam.ico">
+  <meta name="description" content="ইসলামিক ব্যক্তিত্বদের জীবনী বিষয়ক ভিডিও সংগ্রহ।">
+  <meta name="keywords" content="ইসলামিক ভিডিও, জীবনী, Prophet Series, Islamic Media">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/theme.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#059669',
+            secondary: '#d97706',
+          },
+          fontFamily: {
+            bengali: ['Noto Sans Bengali', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .video-card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .video-card-hover:hover { transform: translateY(-8px); }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #059669; border-radius: 10px; }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slide-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fade-in 0.4s ease-out; }
+    .animate-slide-up { animation: slide-up 0.5s ease-out; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 flex flex-col min-h-screen font-bengali transition-colors duration-300">
+
+  <div id="navbar-placeholder"></div>
+
+  <header class="relative py-20 overflow-hidden">
+    <div class="absolute top-6 left-6 z-20">
+      <a href="media.html" class="group inline-flex items-center gap-2 bg-white dark:bg-slate-900 hover:bg-primary text-slate-700 dark:text-slate-200 hover:text-white font-bold px-4 py-2.5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-primary transition-all duration-300 text-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
+        <span>পেছনে</span>
+      </a>
+    </div>
+    <div class="container mx-auto px-6 relative z-10 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-4 tracking-tight">জীবনী</h1>
+      <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto italic text-lg">ইসলামিক ব্যক্তিত্বদের জীবনী বিষয়ক ভিডিও সংগ্রহ।</p>
+      <div class="w-24 h-1.5 bg-primary mx-auto rounded-full mt-8 shadow-lg shadow-primary/20"></div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-6 py-8 flex-grow">
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
+      <div class="relative w-full md:w-80 group">
+        <input type="text" id="media-search" placeholder="ভিডিও খুঁজুন..." class="w-full p-3.5 pl-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 dark:focus:ring-emerald-900/20 focus:border-primary transition-all shadow-sm font-medium text-slate-700 dark:text-slate-200">
+        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">🔍</span>
+      </div>
+    </div>
+
+    <div id="media-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    </div>
+
+    <div id="pagination-container" class="flex justify-center items-center space-x-3 mt-16 mb-8">
+    </div>
+
+    <div id="empty-state" class="hidden text-center py-20">
+      <div class="w-20 h-20 bg-slate-100 dark:bg-slate-900 text-slate-300 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+      </div>
+      <h3 class="text-xl font-bold text-slate-600 dark:text-slate-400">দুঃখিত, কোনো ভিডিও পাওয়া যায়নি</h3>
+      <button onclick="resetFilters()" class="mt-4 text-primary font-bold hover:underline">সব ভিডিও দেখুন</button>
+    </div>
+
+  </main>
+
+  <div id="video-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-10 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-sm" onclick="closeModal()"></div>
+    <div class="relative w-full max-w-5xl bg-black rounded-3xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300" id="modal-content">
+      <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center backdrop-blur-md transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+      <div class="aspect-video">
+        <iframe id="modal-iframe" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="p-6 bg-white dark:bg-slate-900">
+        <h3 id="modal-title" class="text-xl font-bold text-slate-800 dark:text-white line-clamp-1">ভিডিও টাইটেল</h3>
+        <p id="modal-category" class="text-primary text-sm font-bold mt-1 uppercase tracking-widest">CATEGORY</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="js/components.js"></script>
+  <script>
+    const jiboniVideos = [
+      { id: 'acszgEl2RJ0', title: 'খালিদ বিন ওয়ালিদ - পর্ব ১', category: 'jiboni' },
+      { id: '2FHC4PViYro', title: 'খালিদ বিন ওয়ালিদ - পর্ব ২', category: 'jiboni' },
+      { id: 't3IPt1aISmE', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৩', category: 'jiboni' },
+      { id: 'EiAolkR2_lw', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৪', category: 'jiboni' },
+      { id: 'wVpwz32TTM4', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৫', category: 'jiboni' },
+      { id: 'n_iv-VkpTRo', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৬', category: 'jiboni' },
+      { id: 'SRFLU9B0kKg', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৭', category: 'jiboni' },
+      { id: 'RFJZ1AvPoYc', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৮', category: 'jiboni' },
+      { id: '54QwDM1O1IE', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৯', category: 'jiboni' },
+      { id: 'xeSEbwZdG4o', title: 'খালিদ বিন ওয়ালিদ - পর্ব ১০', category: 'jiboni' },
+      { id: 'kEOeq5jrd0o', title: 'খালিদ বিন ওয়ালিদ - পর্ব ১১', category: 'jiboni' },
+      { id: 'Z45EScprnRU', title: 'খালিদ বিন ওয়ালিদ - পর্ব ১২', category: 'jiboni' },
+      { id: 'gs3r8fZBkW8', title: 'খালিদ বিন ওয়ালিদ - পর্ব ১৩', category: 'jiboni' },
+      { id: '2JBuusOYb1s', title: 'খালিদ বিন ওয়ালিদ - পর্ব ১৪', category: 'jiboni' },
+      { id: 'In4WDXntB_E', title: 'খালিদ বিন ওয়ালিদ - পর্ব ১৫', category: 'jiboni' },
+      { id: 'dE91zJ0iT7c', title: 'খালিদ বিন ওয়ালিদ - পর্ব ১৬', category: 'jiboni' },
+      { id: 'dbcEsz2nPKU', title: 'খালিদ বিন ওয়ালিদ - পর্ব ১৭', category: 'jiboni' },
+      { id: 'gAIrkUmoR1o', title: 'খালিদ বিন ওয়ালিদ - পর্ব ১৮', category: 'jiboni' },
+      { id: '1TRsrxs7Sjs', title: 'খালিদ বিন ওয়ালিদ - পর্ব ১৯', category: 'jiboni' },
+      { id: 'u9LHoJ_Vo8o', title: 'খালিদ বিন ওয়ালিদ - পর্ব ২০', category: 'jiboni' },
+      { id: 'NwYIpM_rhIw', title: 'খালিদ বিন ওয়ালিদ - পর্ব ২১', category: 'jiboni' },
+      { id: 'sDrPSCzfxkc', title: 'খালিদ বিন ওয়ালিদ - পর্ব ২২', category: 'jiboni' },
+      { id: 'IjqnTQc0j24', title: 'খালিদ বিন ওয়ালিদ - পর্ব ২৩', category: 'jiboni' },
+      { id: '3krsFsCDnY8', title: 'খালিদ বিন ওয়ালিদ - পর্ব ২৪', category: 'jiboni' },
+      { id: 'TLDUkvmwuYU', title: 'খালিদ বিন ওয়ালিদ - পর্ব ২৫', category: 'jiboni' },
+      { id: 'kNr9mQYoVqo', title: 'খালিদ বিন ওয়ালিদ - পর্ব ২৬', category: 'jiboni' },
+      { id: 'eNeqLlzCsNw', title: 'খালিদ বিন ওয়ালিদ - পর্ব ২৭', category: 'jiboni' },
+      { id: 'ZXNQvmY28yY', title: 'খালিদ বিন ওয়ালিদ - পর্ব ২৮', category: 'jiboni' },
+      { id: 'fdUIhbnnOzs', title: 'খালিদ বিন ওয়ালিদ - পর্ব ২৯', category: 'jiboni' },
+      { id: 'V30eBhJLVEQ', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৩০', category: 'jiboni' },
+      { id: '0b2ln5RiWXI', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৩১', category: 'jiboni' },
+      { id: 'n_4e1ReM63s', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৩২', category: 'jiboni' },
+      { id: 'p8UxqHWmc8w', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৩৩', category: 'jiboni' },
+      { id: 'Y6IxdmyYWlg', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৩৪', category: 'jiboni' },
+      { id: 'OfTFvv9rl3Q', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৩৫', category: 'jiboni' },
+      { id: 'wFw0s26b4wc', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৩৬', category: 'jiboni' },
+      { id: 'XZeVSYH1fKE', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৩৭', category: 'jiboni' },
+      { id: 'jAdIQaV97wQ', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৩৮', category: 'jiboni' },
+      { id: 'lmKDH4K191I', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৩৯', category: 'jiboni' },
+      { id: '35zbrIruR2M', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৪০', category: 'jiboni' },
+      { id: 'UT2qwYCrCE8', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৪১', category: 'jiboni' },
+      { id: 'chPRMmraXKQ', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৪২', category: 'jiboni' },
+      { id: 'bvp2I1DmNVQ', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৪৩', category: 'jiboni' },
+      { id: 'eFdlmcDGYAY', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৪৪', category: 'jiboni' },
+      { id: 'VndImWnts6M', title: 'খালিদ বিন ওয়ালিদ - পর্ব ৪৫', category: 'jiboni' },
+      { id: 'fEcdMF6i3uc', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১ | দুঃসাহসিক অভিযান | ১', category: 'jiboni' },
+      { id: 'pmGkD2HC048', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১ | দুঃসাহসিক অভিযান | ২', category: 'jiboni' },
+      { id: 'vFQsiEp9LdA', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১ | দুঃসাহসিক অভিযান | ৩', category: 'jiboni' },
+      { id: 'RTjxRZowW4A', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১ | দুঃসাহসিক অভিযান | ৪', category: 'jiboni' },
+      { id: 'thEeflB1vrw', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১ | দুঃসাহসিক অভিযান | ৫', category: 'jiboni' },
+      { id: '9Oa-CweKgNY', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১ | দুঃসাহসিক অভিযান | ৬', category: 'jiboni' },
+      { id: 'YS2x6VlSzkc', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১ | দুঃসাহসিক অভিযান | ৭', category: 'jiboni' },
+      { id: 'c8J0ZhEVP2I', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১ | দুঃসাহসিক অভিযান | ৮', category: 'jiboni' },
+      { id: 'iDDdpIXrOpM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১ | দুঃসাহসিক অভিযান | ৯', category: 'jiboni' },
+      { id: '8zO1hW5kcEY', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১ | দুঃসাহসিক অভিযান | ১০', category: 'jiboni' },
+      { id: 'SWj6AHm1AHk', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১ | দুঃসাহসিক অভিযান | ১১', category: 'jiboni' },
+      { id: 'UUn-GOZ8Vow', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১ | দুঃসাহসিক অভিযান | ১২', category: 'jiboni' },
+      { id: '8nsC9mc4UJo', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২ | কমান্ডো অভিযান | ১', category: 'jiboni' },
+      { id: 'Z0MNiIGLQrg', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২ | কমান্ডো অভিযান | ২', category: 'jiboni' },
+      { id: 'ilaJf17zyO0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২ | কমান্ডো অভিযান | ৩', category: 'jiboni' },
+      { id: '0mEKBjCteB8', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২ | কমান্ডো অভিযান | ৪', category: 'jiboni' },
+      { id: '6TkrmYbFOG0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২ | কমান্ডো অভিযান | ৫', category: 'jiboni' },
+      { id: 'lMmNC9uMvgw', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২ | কমান্ডো অভিযান | ৬', category: 'jiboni' },
+      { id: 'FW7LfyKdcKM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২ | কমান্ডো অভিযান | ৭', category: 'jiboni' },
+      { id: 'R733mh86P_A', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২ | কমান্ডো অভিযান | ৮', category: 'jiboni' },
+      { id: 'JkNfNSB2rkc', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২ | কমান্ডো অভিযান | ৯', category: 'jiboni' },
+      { id: 'awqhSMUepZY', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২ | কমান্ডো অভিযান | ১০', category: 'jiboni' },
+      { id: 'I-yNz0O8pQs', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৩ | সুবাক দুর্গে আক্রমণ | ১', category: 'jiboni' },
+      { id: '-GGodkmqd-E', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৩ | সুবাক দুর্গে আক্রমণ | ২', category: 'jiboni' },
+      { id: '7EeVycZ8_Eg', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৩ | সুবাক দুর্গে আক্রমণ | ৩', category: 'jiboni' },
+      { id: 'YMX5w3OIKuQ', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৩ | সুবাক দুর্গে আক্রমণ | ৪', category: 'jiboni' },
+      { id: 'ARLWodIWZy4', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৩ | সুবাক দুর্গে আক্রমণ | ৫', category: 'jiboni' },
+      { id: 'caSP6uwY2NA', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৩ | সুবাক দুর্গে আক্রমণ | ৬', category: 'jiboni' },
+      { id: 'OmAjz2Kr9sY', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৩ | সুবাক দুর্গে আক্রমণ | ৭', category: 'jiboni' },
+      { id: 'uLtm5XlHcEo', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৩ | সুবাক দুর্গে আক্রমণ | ৮', category: 'jiboni' },
+      { id: 'tisjKbiwSgE', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৪ | ভয়ঙ্কর ষড়যন্ত্র | ১', category: 'jiboni' },
+      { id: 'HHctFjuNsE0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৪ | ভয়ঙ্কর ষড়যন্ত্র | ২', category: 'jiboni' },
+      { id: 'KSUGg99iK9U', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৪ | ভয়ঙ্কর ষড়যন্ত্র | ৩', category: 'jiboni' },
+      { id: 'WRavsBy8i9k', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৪ | ভয়ঙ্কর ষড়যন্ত্র | ৪', category: 'jiboni' },
+      { id: 'yYfK50HbWmM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৪ | ভয়ঙ্কর ষড়যন্ত্র | ৫', category: 'jiboni' },
+      { id: 'VWeL6VkyhtM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৪ | ভয়ঙ্কর ষড়যন্ত্র | ৬', category: 'jiboni' },
+      { id: 'FRSlPGROhMM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৪ | ভয়ঙ্কর ষড়যন্ত্র | ৭', category: 'jiboni' },
+      { id: 'gHf2Ov787LQ', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৪ | ভয়ঙ্কর ষড়যন্ত্র | ৮', category: 'jiboni' },
+      { id: 'GdfQMg_R2yc', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৪ | ভয়ঙ্কর ষড়যন্ত্র | ৯', category: 'jiboni' },
+      { id: 'wGnaZOIJhL4', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৫ | ভয়াল রজনী | ১', category: 'jiboni' },
+      { id: 'F_BdSolkXuY', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৫ | ভয়াল রজনী | ২', category: 'jiboni' },
+      { id: '_WbJ0IvJi7k', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৫ | ভয়াল রজনী | ৩', category: 'jiboni' },
+      { id: 'jYCACt-KbKs', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৫ | ভয়াল রজনী | ৪', category: 'jiboni' },
+      { id: '1lCKezPW6cc', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৫ | ভয়াল রজনী | ৫', category: 'jiboni' },
+      { id: 'ngAJxcyH5X4', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৫ | ভয়াল রজনী | ৬', category: 'jiboni' },
+      { id: 'UM5xxlqEf4Q', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৬ | আবারো সংঘাত | ১', category: 'jiboni' },
+      { id: '4nkc8ALBPMQ', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৬ | আবারো সংঘাত | ২', category: 'jiboni' },
+      { id: 'AdBXNmPT6ns', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৬ | আবারো সংঘাত | ৩', category: 'jiboni' },
+      { id: '4xw9tZiBGuQ', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৬ | আবারো সংঘাত | ৪', category: 'jiboni' },
+      { id: '318bDbK2dbE', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৬ | আবারো সংঘাত | ৫', category: 'jiboni' },
+      { id: 'P6d4S9hUV_U', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৬ | আবারো সংঘাত | ৬', category: 'jiboni' },
+      { id: '98KB9lpIl14', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৬ | আবারো সংঘাত | ৭', category: 'jiboni' },
+      { id: 'Prd31ty6Xl0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৭ | দুর্গ পতন | ১', category: 'jiboni' },
+      { id: 'wa4jJitO8ww', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৭ | দুর্গ পতন | ২', category: 'jiboni' },
+      { id: 'G9jpbUqG978', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৭ | দুর্গ পতন | ৩', category: 'jiboni' },
+      { id: 'e5p3eR_0qdQ', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৭ | দুর্গ পতন | ৪', category: 'jiboni' },
+      { id: '47aoglS8Qz0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৭ | দুর্গ পতন | ৫', category: 'jiboni' },
+      { id: 'N3PyIjMqb-Y', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৭ | দুর্গ পতন | ৬', category: 'jiboni' },
+      { id: 'I9X0HSdZcyY', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৭ | দুর্গ পতন | ৭', category: 'jiboni' },
+      { id: '85uAnYLQTD8', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৭ | দুর্গ পতন | ৮', category: 'jiboni' },
+      { id: 'NmeX-AkLGg8', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৮ | ফেরাউনের গুপ্তধন | ১', category: 'jiboni' },
+      { id: 'bLGUqXAG2as', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৮ | ফেরাউনের গুপ্তধন | ২', category: 'jiboni' },
+      { id: 'P62xQkoO7hM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৮ | ফেরাউনের গুপ্তধন | ৩', category: 'jiboni' },
+      { id: 'CUIkz5_WeWU', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৮ | ফেরাউনের গুপ্তধন | ৪', category: 'jiboni' },
+      { id: 'QCYPlvX41IU', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৮ | ফেরাউনের গুপ্তধন | ৫', category: 'jiboni' },
+      { id: '5rgHy9E09dA', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৮ | ফেরাউনের গুপ্তধন | ৬', category: 'jiboni' },
+      { id: 'MlJH-7YT0bs', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৮ | ফেরাউনের গুপ্তধন | ৭', category: 'jiboni' },
+      { id: '7SqR2qtCJj0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৮ | ফেরাউনের গুপ্তধন | ৮', category: 'jiboni' },
+      { id: 'chijFVptz4Q', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৯ | উপকূলে সংঘর্ষ | ১', category: 'jiboni' },
+      { id: 'HZ1boRGN9Xo', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৯ | উপকূলে সংঘর্ষ | ২', category: 'jiboni' },
+      { id: 'hn89m1rfKe4', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৯ | উপকূলে সংঘর্ষ | ৩', category: 'jiboni' },
+      { id: '0WOoKbEeWzU', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৯ | উপকূলে সংঘর্ষ | ৪', category: 'jiboni' },
+      { id: 'V39P96ZptMs', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৯ | উপকূলে সংঘর্ষ | ৫', category: 'jiboni' },
+      { id: 'uymjcnE6qh8', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৯ | উপকূলে সংঘর্ষ | ৬', category: 'jiboni' },
+      { id: '0zQAmlOBNx8', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৯ | উপকূলে সংঘর্ষ | ৭', category: 'jiboni' },
+      { id: 'kyySZdVuTdk', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৯ | উপকূলে সংঘর্ষ | ৮', category: 'jiboni' },
+      { id: 'YnKT6cxxCac', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১০ | সর্প কেল্লার খুনি | ১', category: 'jiboni' },
+      { id: 'kmyhSlbf-4E', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১০ | সর্প কেল্লার খুনি | ২', category: 'jiboni' },
+      { id: 'qQc2vIQ8A00', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১০ | সর্প কেল্লার খুনি | ৩', category: 'jiboni' },
+      { id: 'XUafGnBYY2Q', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১০ | সর্প কেল্লার খুনি | ৪', category: 'jiboni' },
+      { id: 'DtCEBK75ZIc', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১০ | সর্প কেল্লার খুনি | ৫', category: 'jiboni' },
+      { id: 'zWyv1kxFgrc', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১০ | সর্প কেল্লার খুনি | ৬', category: 'jiboni' },
+      { id: 'fDwruU3y4tQ', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১০ | সর্প কেল্লার খুনি | ৭', category: 'jiboni' },
+      { id: 'OM_cSKgzeEE', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১০ | সর্প কেল্লার খুনি | ৮', category: 'jiboni' },
+      { id: 'mQIyzAmqiBU', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১১ | চারদিকে চক্রান্ত | ১', category: 'jiboni' },
+      { id: 'miN_IpfpvQ8', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১১ | চারদিকে চক্রান্ত | ২', category: 'jiboni' },
+      { id: 'QbYGl5pobRw', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১১ | চারদিকে চক্রান্ত | ৩', category: 'jiboni' },
+      { id: 'hVEXgowEK3o', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১১ | চারদিকে চক্রান্ত | ৪', category: 'jiboni' },
+      { id: 'dqUKIs4OoKc', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১২ | গোপন বিদ্রোহী | ১', category: 'jiboni' },
+      { id: 'PC41moxQ6Rg', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১২ | গোপন বিদ্রোহী | ২', category: 'jiboni' },
+      { id: 'jyhlQVl4Ikw', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১২ | গোপন বিদ্রোহী | ৩', category: 'jiboni' },
+      { id: 'dC93ZbE7KxU', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১২ | গোপন বিদ্রোহী | ৪', category: 'jiboni' },
+      { id: '-8_wrC0BfL0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১২ | গোপন বিদ্রোহী | ৫', category: 'jiboni' },
+      { id: 'vH07TZLVsQM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১২ | গোপন বিদ্রোহী | ৬', category: 'jiboni' },
+      { id: 'jj3pK9-kcoI', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৩ | পাপের ফল | ১', category: 'jiboni' },
+      { id: 'x8T8K2LK7P8', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৩ | পাপের ফল | ২', category: 'jiboni' },
+      { id: 'wuRNNh4vl78', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৩ | পাপের ফল | ৩', category: 'jiboni' },
+      { id: 'Mro2s0J5DR8', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৩ | পাপের ফল | ৪', category: 'jiboni' },
+      { id: 'ucO1_0-7ryI', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৩ | পাপের ফল | ৫', category: 'jiboni' },
+      { id: 'Ecpo5pZyMIU', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৩ | পাপের ফল | ৬', category: 'jiboni' },
+      { id: 'xin1DAmA_F0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৪ | তুমুল লড়াই | ১', category: 'jiboni' },
+      { id: 'E9NqiPKf5Xw', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৪ | তুমুল লড়াই | ২', category: 'jiboni' },
+      { id: 'SIOK6dMYxN0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৪ | তুমুল লড়াই | ৩', category: 'jiboni' },
+      { id: 'aq2w1udNPBo', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৪ | তুমুল লড়াই | ৪', category: 'jiboni' },
+      { id: 'HvuGesgtG-o', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৪ | তুমুল লড়াই | ৫', category: 'jiboni' },
+      { id: 'nFhIJFHuQCk', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৪ | তুমুল লড়াই | ৬', category: 'jiboni' },
+      { id: 'iaqPpoxHhOg', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৫ | উমরু দরবেশ | ১', category: 'jiboni' },
+      { id: 'Qlqw0ttn6vI', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৫ | উমরু দরবেশ | ২', category: 'jiboni' },
+      { id: 'lDj2vjx3NhE', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৫ | উমরু দরবেশ | ৩', category: 'jiboni' },
+      { id: '3ice6d3RQIs', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৫ | উমরু দরবেশ | ৪', category: 'jiboni' },
+      { id: 'eeCWB5bW6eI', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৫ | উমরু দরবেশ | ৫', category: 'jiboni' },
+      { id: 'o_UygdA0yoQ', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৬ | টার্গেট ফিলিস্তিন | ১', category: 'jiboni' },
+      { id: 'tsWxZlNHxkY', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৬ | টার্গেট ফিলিস্তিন | ২', category: 'jiboni' },
+      { id: 'rDA9GIGMHqg', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৬ | টার্গেট ফিলিস্তিন | ৩', category: 'jiboni' },
+      { id: '4CrCzp4XBow', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৬ | টার্গেট ফিলিস্তিন | ৪', category: 'jiboni' },
+      { id: 'J7pPFPlRFpw', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৬ | টার্গেট ফিলিস্তিন | ৫', category: 'jiboni' },
+      { id: 'X7A7wEcxIRM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৬ | টার্গেট ফিলিস্তিন | ৬', category: 'jiboni' },
+      { id: 'W7vInwemTM0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৭ | গাদ্দার | ১', category: 'jiboni' },
+      { id: 'nHvEzjVnGl4', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৭ | গাদ্দার | ২', category: 'jiboni' },
+      { id: 'uiy0kSA69sM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৭ | গাদ্দার | ৩', category: 'jiboni' },
+      { id: 'estHxGyF8ak', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৭ | গাদ্দার | ৪', category: 'jiboni' },
+      { id: 'GZvI0wWlmRw', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৭ | গাদ্দার | ৫', category: 'jiboni' },
+      { id: '6XQ9vpuu1f8', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৮ | বিষাক্ত ছোবল | ১', category: 'jiboni' },
+      { id: 'NYDWjIoJkrc', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৮ | বিষাক্ত ছোবল | ২', category: 'jiboni' },
+      { id: 'SG4tMyM1ihc', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৮ | বিষাক্ত ছোবল | ৩', category: 'jiboni' },
+      { id: 'cqhuXBalybk', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৮ | বিষাক্ত ছোবল | ৪', category: 'jiboni' },
+      { id: 'WO1uxwI7dc0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৮ | বিষাক্ত ছোবল | ৫', category: 'jiboni' },
+      { id: 'ijG8OTbw3zQ', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৮ | বিষাক্ত ছোবল | ৬', category: 'jiboni' },
+      { id: 'UVBgIi933uY', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৮ | বিষাক্ত ছোবল | ৭', category: 'jiboni' },
+      { id: 'dG8rmVEw5y0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৯ | খুনী চক্রের আস্তানায় | ১', category: 'jiboni' },
+      { id: '-xPg_JB9VPQ', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৯ | খুনী চক্রের আস্তানায় | ২', category: 'jiboni' },
+      { id: 'p_QEoH_doL4', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৯ | খুনী চক্রের আস্তানায় | ৩', category: 'jiboni' },
+      { id: 'BZDvKriP4M0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৯ | খুনী চক্রের আস্তানায় | ৪', category: 'jiboni' },
+      { id: '-5mUoKNdCMY', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৯ | খুনী চক্রের আস্তানায় | ৫', category: 'jiboni' },
+      { id: 'EE_LsezY1I4', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ১৯ | খুনী চক্রের আস্তানায় | ৬', category: 'jiboni' },
+      { id: 'odSTL8F2cE8', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২০ | পাল্টা ধাওয়া | ১', category: 'jiboni' },
+      { id: 'OkHTRLbtTtk', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২০ | পাল্টা ধাওয়া | ২', category: 'jiboni' },
+      { id: '6y6d-JwNaHc', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২০ | পাল্টা ধাওয়া | ৩', category: 'jiboni' },
+      { id: '3Qp5xMEAMp0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২০ | পাল্টা ধাওয়া | ৪', category: 'jiboni' },
+      { id: 'ECV8tiSNITU', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২০ | পাল্টা ধাওয়া | ৫', category: 'jiboni' },
+      { id: 'sRAeDmqrIjo', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২০ | পাল্টা ধাওয়া | ৬', category: 'jiboni' },
+      { id: '_N0CSPqeGvk', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২০ | পাল্টা ধাওয়া | ৭', category: 'jiboni' },
+      { id: 'GJVDGEkkF-4', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২১ | ধাপ্পাবাজ | ১', category: 'jiboni' },
+      { id: 'uvA7z1ujZsM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২১ | ধাপ্পাবাজ | ২', category: 'jiboni' },
+      { id: 'zawphnLIRts', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২১ | ধাপ্পাবাজ | ৩', category: 'jiboni' },
+      { id: 'V0xkhp2E55o', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২১ | ধাপ্পাবাজ | ৪', category: 'jiboni' },
+      { id: 'f4jabxInodQ', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২১ | ধাপ্পাবাজ | ৫', category: 'jiboni' },
+      { id: 'ifjnSAARWCU', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২১ | ধাপ্পাবাজ | ৬', category: 'jiboni' },
+      { id: 'vwTKQgGJLMY', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২১ | ধাপ্পাবাজ | ৭', category: 'jiboni' },
+      { id: 'AsCkslxdYN0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২২ | হেমসের যোদ্ধা | ১', category: 'jiboni' },
+      { id: 'sA4Lm6uGiUY', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২২ | হেমসের যোদ্ধা | ২', category: 'jiboni' },
+      { id: 'lax16X0YoCM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২২ | হেমসের যোদ্ধা | ৩', category: 'jiboni' },
+      { id: 'oFcCX63GWa8', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২২ | হেমসের যোদ্ধা | ৪', category: 'jiboni' },
+      { id: 'NrOenkJC57Q', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২২ | হেমসের যোদ্ধা | ৫', category: 'jiboni' },
+      { id: '5Dw2emPa3UA', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২২ | হেমসের যোদ্ধা | ৬', category: 'jiboni' },
+      { id: 'kbJ_WU18ftg', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৩ | ইহুদী কন্যা | ১', category: 'jiboni' },
+      { id: 'naUYWGHDiC8', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৩ | ইহুদী কন্যা | ২', category: 'jiboni' },
+      { id: 'uJeB-oaYDRE', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৩ | ইহুদী কন্যা | ৩', category: 'jiboni' },
+      { id: 'oqtJSzW0zVM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৩ | ইহুদী কন্যা | ৪', category: 'jiboni' },
+      { id: '9r3HM9nU9eg', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৩ | ইহুদী কন্যা | ৫', category: 'jiboni' },
+      { id: 'Wbd5qECRBbQ', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৪ | সামনে বৈরুত | ১', category: 'jiboni' },
+      { id: 'c1X79B6NFAg', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৪ | সামনে বৈরুত | ২', category: 'jiboni' },
+      { id: 'VcYKHVk9et4', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৪ | সামনে বৈরুত | ৩', category: 'jiboni' },
+      { id: 'pimXpHVb3Mw', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৪ | সামনে বৈরুত | ৪', category: 'jiboni' },
+      { id: '5rkFu5kK0Do', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৫ | দুর্গম পাহাড় | ১', category: 'jiboni' },
+      { id: 'oAb_3EiQWqs', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৫ | দুর্গম পাহাড় | ২', category: 'jiboni' },
+      { id: 'nalj4INLSt4', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৫ | দুর্গম পাহাড় | ৩', category: 'jiboni' },
+      { id: 'WhoLV8YFaCM', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৬ | ভন্ড পীরের কান্ড | ১', category: 'jiboni' },
+      { id: 'XB-XG9CWxuQ', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৬ | ভন্ড পীরের কান্ড | ২', category: 'jiboni' },
+      { id: 'oWJ9Aqnv49k', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৬ | ভন্ড পীরের কান্ড | ৩', category: 'jiboni' },
+      { id: 'vIdmK98gvwg', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৭ | ছোট বেগম | ১', category: 'jiboni' },
+      { id: 'ZvoHh0juTn0', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৭ | ছোট বেগম | ২', category: 'jiboni' },
+      { id: 'g2jc1v2JfVU', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৭ | ছোট বেগম | ৩', category: 'jiboni' },
+      { id: 'hvksyePHf4M', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৮ | রক্তস্রোত | ১', category: 'jiboni' },
+      { id: 'YdWwT4i3pfo', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৮ | রক্তস্রোত | ২', category: 'jiboni' },
+      { id: 'nWBkBgXJc0s', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৮ | রক্তস্রোত | ৩', category: 'jiboni' },
+      { id: 'u3UbQ45Ah5c', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৯ | রিচার্ডের নৌবহর | ১', category: 'jiboni' },
+      { id: 'IuaPerwQyvg', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৯ | রিচার্ডের নৌবহর | ২', category: 'jiboni' },
+      { id: 'CZNeKjZskYA', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ২৯ | রিচার্ডের নৌবহর | ৩', category: 'jiboni' },
+      { id: 'uw2d7nJ5gFc', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৩০ | মহাসমর | ১', category: 'jiboni' },
+      { id: 'ItaTMjefJcw', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৩০ | মহাসমর | ২', category: 'jiboni' },
+      { id: 'BSCgndd5Ze4', title: 'সালাহউদ্দিন আইয়ুবী - ক্রুসেড ৩০ | মহাসমর | শেষ', category: 'jiboni' }
+    ];
+
+    const jiboniFolders = [
+      {
+        id: 'foleder-1',
+        name: 'খালিদ বিন ওয়ালিদ',
+        description: 'নাঙ্গা তলোয়ার - খালিদ বিন ওয়ালিদ রা.-এর জীবনী',
+        videoIndices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]
+      },
+      {
+        id: 'foleder-2',
+        name: 'সালাহউদ্দিন আইয়ুবী',
+        description: 'ক্রুসেড যুদ্ধ - সালাহউদ্দিন আইয়ুবীর জীবনী',
+        videoIndices: [45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226]
+      }
+    ];
+
+    const grid = document.getElementById('media-grid');
+    const paginationContainer = document.getElementById('pagination-container');
+    const modal = document.getElementById('video-modal');
+    const modalIframe = document.getElementById('modal-iframe');
+    const modalContent = document.getElementById('modal-content');
+    const searchInput = document.getElementById('media-search');
+
+    let currentPage = 1;
+    const itemsPerPage = 12;
+    let selectedFolder = null;
+    let filteredItems = [];
+
+    function renderMedia() {
+      grid.innerHTML = '';
+
+      if (!selectedFolder) {
+        renderFolders();
+        return;
+      }
+
+      const folder = jiboniFolders.find(f => f.id === selectedFolder);
+      const backEl = document.createElement('div');
+      backEl.className = 'col-span-full animate-fade-in';
+      backEl.innerHTML = `
+        <button onclick="backToFolders()" class="group flex items-center gap-3 bg-white dark:bg-slate-900 hover:bg-primary text-slate-700 dark:text-slate-200 hover:text-white font-bold px-5 py-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-primary transition-all duration-300 mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
+          <span>জীবনী</span>
+        </button>
+        <h2 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-6 animate-slide-up">${folder.name}</h2>
+      `;
+      grid.appendChild(backEl);
+
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const paginatedItems = filteredItems.slice(startIndex, endIndex);
+
+      if (paginatedItems.length === 0) {
+        document.getElementById('empty-state').classList.remove('hidden');
+        paginationContainer.innerHTML = '';
+        return;
+      }
+      document.getElementById('empty-state').classList.add('hidden');
+
+      paginatedItems.forEach((item) => {
+        const thumbUrl = `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`;
+        const card = document.createElement('div');
+        card.className = "video-card-hover bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 group cursor-pointer";
+        card.onclick = () => openModal(item);
+        card.innerHTML = `
+          <div class="aspect-video relative overflow-hidden">
+            <img src="${thumbUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <div class="w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl transform scale-75 group-hover:scale-100 transition-transform duration-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+            <div class="absolute top-4 left-4 flex flex-col space-y-2">
+              <span class="px-3 py-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-[10px] font-bold text-primary rounded-lg uppercase tracking-wider shadow-sm border border-emerald-50 dark:border-slate-800">জীবনী</span>
+            </div>
+            <div class="absolute top-4 right-4">
+              <button onclick="handleMediaBookmark(event, ${JSON.stringify(item).replace(/"/g, '&quot;')})" class="w-10 h-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-primary rounded-xl flex items-center justify-center shadow-sm border border-emerald-50 dark:border-slate-800 hover:bg-primary hover:text-white transition-all bookmark-btn" data-key="media_${item.id}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="${window.isBookmarked(`media_${item.id}`) ? 'currentColor' : 'none'}" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg>
+              </button>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-bold text-slate-800 dark:text-white text-sm md:text-base line-clamp-2 leading-relaxed group-hover:text-primary transition-colors">${item.title}</h3>
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                এখন দেখুন
+              </span>
+              <div class="w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      renderPagination();
+    }
+
+    function renderFolders() {
+      grid.innerHTML = '';
+      document.getElementById('empty-state').classList.add('hidden');
+      paginationContainer.innerHTML = '';
+
+      jiboniFolders.forEach((folder) => {
+        const folderCard = document.createElement('div');
+        folderCard.className = "col-span-full flex flex-row items-center bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 group cursor-pointer hover:shadow-md hover:border-primary/20 transition-all duration-300";
+        folderCard.onclick = () => selectFolder(folder.id);
+        const count = folder.videoIndices.length;
+        folderCard.innerHTML = `
+          <div class="flex-1 min-w-0 px-5 py-5">
+            <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-white group-hover:text-primary transition-colors truncate">${folder.name}</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 truncate">${folder.description}</p>
+            <p class="text-xs text-slate-400 dark:text-slate-500 mt-1.5 font-medium">${window.toBengaliNumerals ? window.toBengaliNumerals(count) : count} টি ভিডিও</p>
+          </div>
+          <div class="flex-shrink-0 px-6">
+            <div class="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:bg-primary/10 group-hover:text-primary transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+            </div>
+          </div>
+        `;
+        grid.appendChild(folderCard);
+      });
+    }
+
+    function selectFolder(folderId) {
+      selectedFolder = folderId;
+      currentPage = 1;
+      applyFilters();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function backToFolders() {
+      selectedFolder = null;
+      currentPage = 1;
+      searchInput.value = '';
+      applyFilters();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderPagination() {
+      paginationContainer.innerHTML = '';
+      const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+      if (totalPages <= 1) return;
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = window.toBengaliNumerals ? window.toBengaliNumerals(i) : i;
+        btn.className = `w-12 h-12 rounded-2xl font-bold transition-all duration-300 ${currentPage === i ? 'bg-primary text-white shadow-lg shadow-primary/30 scale-110' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 border border-slate-100 dark:border-slate-800'}`;
+        btn.onclick = () => { currentPage = i; renderMedia(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+        paginationContainer.appendChild(btn);
+      }
+    }
+
+    function openModal(item) {
+      modalIframe.src = `https://www.youtube.com/embed/${item.id}?autoplay=1`;
+      document.getElementById('modal-title').innerText = item.title;
+      document.getElementById('modal-category').innerText = 'জীবনী';
+      modal.classList.remove('pointer-events-none', 'opacity-0');
+      modal.classList.add('opacity-100');
+      modalContent.classList.remove('scale-95');
+      modalContent.classList.add('scale-100');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modalContent.classList.add('scale-95');
+      modalContent.classList.remove('scale-100');
+      setTimeout(() => { modalIframe.src = ''; }, 300);
+      document.body.style.overflow = '';
+    }
+
+    function applyFilters() {
+      const query = searchInput.value.toLowerCase().trim();
+      if (!selectedFolder) {
+        filteredItems = [];
+        renderMedia();
+        return;
+      }
+      const folder = jiboniFolders.find(f => f.id === selectedFolder);
+      filteredItems = folder.videoIndices.map(i => jiboniVideos[i]).filter(item => {
+        return item.title.toLowerCase().includes(query);
+      });
+      currentPage = 1;
+      renderMedia();
+    }
+
+    function resetFilters() {
+      searchInput.value = '';
+      applyFilters();
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+
+    window.handleMediaBookmark = (event, item) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const key = `media_${item.id}`;
+      const data = { key: key, type: 'media', id: item.id, title: item.title, url: `jiboni.html?id=${item.id}` };
+      const isAdded = window.toggleBookmark(data);
+      document.querySelectorAll(`.bookmark-btn[data-key="${key}"]`).forEach(btn => {
+        const svg = btn.querySelector('svg');
+        svg.setAttribute('fill', isAdded ? 'currentColor' : 'none');
+      });
+    };
+
+    renderMedia();
+  </script>
+</body>
+</html>
