@@ -314,12 +314,25 @@
           <a href="${surahLink}" class="block">
             <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 group-hover:text-primary transition-colors">${surah.name}</h3>
             <p class="text-slate-500 dark:text-slate-400 text-sm">আয়াত: ${toBengaliNumerals(surah.verses)}</p>
+            ${targetAyah ? `<p id="ayat-preview-${surah.id}" class="text-xs text-slate-400 dark:text-slate-500 mt-2 leading-relaxed line-clamp-2">আয়াত লোড হচ্ছে...</p>` : ''}
             <div class="mt-4 text-primary font-bold text-sm flex items-center opacity-0 group-hover:opacity-100 transition-all">
                 ${targetAyah ? `আয়াত নম্বর ${toBengaliNumerals(targetAyah)}-এ যান` : 'বিস্তারিত পড়ুন'} <span class="ml-2">→</span>
             </div>
           </a>
         `;
         grid.appendChild(card);
+
+        if (targetAyah) {
+          fetch(`https://api.alquran.cloud/v1/ayah/${surah.id}:${targetAyah}/bn.bengali`)
+            .then(r => r.json())
+            .then(data => {
+              if (data.code === 200) {
+                const el = document.getElementById(`ayat-preview-${surah.id}`);
+                if (el) el.textContent = data.data.text.substring(0, 140) + '...';
+              }
+            })
+            .catch(() => {});
+        }
       });
 
       renderPagination(currentSurahs.length);
