@@ -524,7 +524,7 @@
         let numberMatch = false;
         if (!isNaN(extractedNumber)) {
           const idMatch = s.id === extractedNumber || s.id.toString().startsWith(extractedNumber.toString());
-          const explicitAyahSearch = rawQuery.includes('আয়াত') || rawQuery.includes('ayah');
+          const explicitAyahSearch = rawQuery.includes('আয়াত') || rawQuery.includes('ayah') || rawQuery.includes('ayat');
           const containsAyah = s.verses >= extractedNumber;
           const ayahMatch = containsAyah && (explicitAyahSearch || idMatch || nameMatch || extractedNumber > 114);
           
