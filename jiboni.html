@@ -44,9 +44,9 @@
 
   <header class="relative py-20 overflow-hidden">
     <div class="absolute top-6 left-6 z-20">
-      <a href="media.html" class="group inline-flex items-center gap-2 bg-white dark:bg-slate-900 hover:bg-primary text-slate-700 dark:text-slate-200 hover:text-white font-bold px-4 py-2.5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-primary transition-all duration-300 text-sm">
+      <a id="back-btn" href="media.html" class="group inline-flex items-center gap-2 bg-white dark:bg-slate-900 hover:bg-primary text-slate-700 dark:text-slate-200 hover:text-white font-bold px-4 py-2.5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-primary transition-all duration-300 text-sm">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
-        <span>পেছনে</span>
+        <span id="back-label">পেছনে</span>
       </a>
     </div>
     <div class="container mx-auto px-6 relative z-10 text-center">
@@ -140,16 +140,10 @@
       }
 
       const folder = jiboniFolders.find(f => f.id === selectedFolder);
-      const backEl = document.createElement('div');
-      backEl.className = 'col-span-full animate-fade-in';
-      backEl.innerHTML = `
-        <button onclick="backToFolders()" class="group flex items-center gap-3 bg-white dark:bg-slate-900 hover:bg-primary text-slate-700 dark:text-slate-200 hover:text-white font-bold px-5 py-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-primary transition-all duration-300 mb-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
-          <span>জীবনী</span>
-        </button>
-        <h2 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-6 animate-slide-up">${folder.name}</h2>
-      `;
-      grid.appendChild(backEl);
+      const titleEl = document.createElement('div');
+      titleEl.className = 'col-span-full animate-slide-up';
+      titleEl.innerHTML = `<h2 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-6">${folder.name}</h2>`;
+      grid.appendChild(titleEl);
 
       const startIndex = (currentPage - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
@@ -229,9 +223,15 @@
       });
     }
 
+    const backBtn = document.getElementById('back-btn');
+    const backLabel = document.getElementById('back-label');
+
     function selectFolder(folderId) {
       selectedFolder = folderId;
       currentPage = 1;
+      backBtn.href = '';
+      backBtn.onclick = (e) => { e.preventDefault(); backToFolders(); };
+      backLabel.textContent = 'জীবনী';
       applyFilters();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -240,6 +240,9 @@
       selectedFolder = null;
       currentPage = 1;
       searchInput.value = '';
+      backBtn.href = 'media.html';
+      backBtn.onclick = null;
+      backLabel.textContent = 'পেছনে';
       applyFilters();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
