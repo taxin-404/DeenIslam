@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>মিডিয়া গ্যালারি - ইসলামিক ভিডিও ও অডিও | DeenIslam</title>
   <link rel="icon" type="image/x-icon" href="favicon/deenislam.ico">
-  <meta name="description" content="ইসলামিক জ্ঞান, নবীদের জীবনী এবং সুন্দর কুরআন তেলাওয়াতের ভিডিও ও অডিও সংগ্রহ।">
-  <meta name="keywords" content="ইসলামিক ভিডিও, নবীদের জীবনী, Prophet Series, Islamic Media">
+  <meta name="description" content="ইসলামিক জ্ঞান, জীবনী এবং সুন্দর কুরআন তেলাওয়াতের ভিডিও ও অডিও সংগ্রহ।">
+  <meta name="keywords" content="ইসলামিক ভিডিও, জীবনী, Prophet Series, Islamic Media">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/theme.js"></script>
@@ -47,7 +47,7 @@
   <header class="relative py-20 overflow-hidden">
     <div class="container mx-auto px-6 relative z-10 text-center">
       <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-4 tracking-tight">অডিও ও ভিডিও গ্যালারি</h1>
-      <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto italic text-lg">ইসলামিক জ্ঞান, নবীদের জীবনী এবং সুন্দর কুরআন তেলাওয়াতের এক বিশাল সংগ্রহ।</p>
+      <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto italic text-lg">ইসলামিক জ্ঞান, জীবনী এবং সুন্দর কুরআন তেলাওয়াতের এক বিশাল সংগ্রহ।</p>
       <div class="w-24 h-1.5 bg-primary mx-auto rounded-full mt-8 shadow-lg shadow-primary/20"></div>
     </div>
   </header>
@@ -59,7 +59,7 @@
         <!-- Tabs -->
         <div class="flex bg-white dark:bg-slate-900 p-1.5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 w-full md:w-auto overflow-x-auto no-scrollbar">
             <button onclick="filterMedia('all')" class="tab-btn px-6 py-2.5 rounded-xl font-bold transition-all active-tab bg-primary text-white" data-category="all">সবগুলো</button>
-            <button onclick="filterMedia('prophets')" class="tab-btn px-6 py-2.5 rounded-xl font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800" data-category="prophets">নবীদের জীবনী</button>
+            <button onclick="filterMedia('jiboni')" class="tab-btn px-6 py-2.5 rounded-xl font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800" data-category="jiboni">জীবনী</button>
             <button onclick="filterMedia('quran')" class="tab-btn px-6 py-2.5 rounded-xl font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800" data-category="quran">কুরআন তেলাওয়াত</button>
             <button onclick="filterMedia('lecture')" class="tab-btn px-6 py-2.5 rounded-xl font-bold transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800" data-category="lecture">আলোচনা ও বয়ান</button>
         </div>
@@ -114,62 +114,58 @@
 
   <script src="js/components.js"></script>
   <script>
-    const prophetVideos = [
-      { id: '76CayvF0flE', title: 'নবীদের জীবনী - পর্ব ১', category: 'prophets' },
-      { id: 'ywHoaKVf0E4', title: 'নবীদের জীবনী - পর্ব ২', category: 'prophets' },
-      { id: 'S4JR8gWIvYg', title: 'নবীদের জীবনী - পর্ব ৩', category: 'prophets' },
-      { id: 'Qe9ylM6fNYM', title: 'নবীদের জীবনী - পর্ব ৪', category: 'prophets' },
-      { id: 'Brnu5TgB0Jc', title: 'নবীদের জীবনী - পর্ব ৫', category: 'prophets' },
-      { id: 'Pxf0L6PguOY', title: 'নবীদের জীবনী - পর্ব ৬', category: 'prophets' },
-      { id: 'T8e9J_FleyE', title: 'নবীদের জীবনী - পর্ব ৭', category: 'prophets' },
-      { id: 'LlLNy0Icf7M', title: 'নবীদের জীবনী - পর্ব ৮', category: 'prophets' },
-      { id: 'ntfdrLthUdg', title: 'নবীদের জীবনী - পর্ব ৯', category: 'prophets' },
-      { id: '_CqhdVQztxg', title: 'নবীদের জীবনী - পর্ব ১০', category: 'prophets' },
-      { id: '_lzwHFr2hBA', title: 'নবীদের জীবনী - পর্ব ১১', category: 'prophets' },
-      { id: 'bFIheGltBC8', title: 'নবীদের জীবনী - পর্ব ১২', category: 'prophets' },
-      { id: '4uvZtvQv6ow', title: 'নবীদের জীবনী - পর্ব ১৩', category: 'prophets' },
-      { id: 'MxkQM92MSzI', title: 'নবীদের জীবনী - পর্ব ১৪', category: 'prophets' },
-      { id: '2pVm1-edHWk', title: 'নবীদের জীবনী - পর্ব ১৫', category: 'prophets' },
-      { id: '9KFO2P-0LhI', title: 'নবীদের জীবনী - পর্ব ১৬', category: 'prophets' },
-      { id: '9_W1cFXWqrE', title: 'নবীদের জীবনী - পর্ব ১৭', category: 'prophets' },
-      { id: 'vf0Df6XVTTc', title: 'নবীদের জীবনী - পর্ব ১৮', category: 'prophets' },
-      { id: 'cWfNnCaH6MI', title: 'নবীদের জীবনী - পর্ব ১৯', category: 'prophets' },
-      { id: 'prZrvfpMQ9U', title: 'নবীদের জীবনী - পর্ব ২০', category: 'prophets' },
-      { id: 'UQokR2tslts', title: 'নবীদের জীবনী - পর্ব ২১', category: 'prophets' },
-      { id: 'UPybeb9JdJs', title: 'নবীদের জীবনী - পর্ব ২২', category: 'prophets' },
-      { id: 'TbQJ6MKtp5Q', title: 'নবীদের জীবনী - পর্ব ২৩', category: 'prophets' },
-      { id: 'jcCEiN4xhFI', title: 'নবীদের জীবনী - পর্ব ২৪', category: 'prophets' },
-      { id: 'lN_0oRePY-g', title: 'নবীদের জীবনী - পর্ব ২৫', category: 'prophets' },
-      { id: 'tSteK_9b5Q0', title: 'নবীদের জীবনী - পর্ব ২৬', category: 'prophets' }
+    const jiboniVideos = [
+      { id: '76CayvF0flE', title: 'জীবনী - পর্ব ১', category: 'jiboni' },
+      { id: 'ywHoaKVf0E4', title: 'জীবনী - পর্ব ২', category: 'jiboni' },
+      { id: 'S4JR8gWIvYg', title: 'জীবনী - পর্ব ৩', category: 'jiboni' },
+      { id: 'Qe9ylM6fNYM', title: 'জীবনী - পর্ব ৪', category: 'jiboni' },
+      { id: 'Brnu5TgB0Jc', title: 'জীবনী - পর্ব ৫', category: 'jiboni' },
+      { id: 'Pxf0L6PguOY', title: 'জীবনী - পর্ব ৬', category: 'jiboni' },
+      { id: 'T8e9J_FleyE', title: 'জীবনী - পর্ব ৭', category: 'jiboni' },
+      { id: 'LlLNy0Icf7M', title: 'জীবনী - পর্ব ৮', category: 'jiboni' },
+      { id: 'ntfdrLthUdg', title: 'জীবনী - পর্ব ৯', category: 'jiboni' },
+      { id: '_CqhdVQztxg', title: 'জীবনী - পর্ব ১০', category: 'jiboni' },
+      { id: '_lzwHFr2hBA', title: 'জীবনী - পর্ব ১১', category: 'jiboni' },
+      { id: 'bFIheGltBC8', title: 'জীবনী - পর্ব ১২', category: 'jiboni' },
+      { id: '4uvZtvQv6ow', title: 'জীবনী - পর্ব ১৩', category: 'jiboni' },
+      { id: 'MxkQM92MSzI', title: 'জীবনী - পর্ব ১৪', category: 'jiboni' },
+      { id: '2pVm1-edHWk', title: 'জীবনী - পর্ব ১৫', category: 'jiboni' },
+      { id: '9KFO2P-0LhI', title: 'জীবনী - পর্ব ১৬', category: 'jiboni' },
+      { id: '9_W1cFXWqrE', title: 'জীবনী - পর্ব ১৭', category: 'jiboni' },
+      { id: 'vf0Df6XVTTc', title: 'জীবনী - পর্ব ১৮', category: 'jiboni' },
+      { id: 'cWfNnCaH6MI', title: 'জীবনী - পর্ব ১৯', category: 'jiboni' },
+      { id: 'prZrvfpMQ9U', title: 'জীবনী - পর্ব ২০', category: 'jiboni' },
+      { id: 'UQokR2tslts', title: 'জীবনী - পর্ব ২১', category: 'jiboni' },
+      { id: 'UPybeb9JdJs', title: 'জীবনী - পর্ব ২২', category: 'jiboni' },
+      { id: 'TbQJ6MKtp5Q', title: 'জীবনী - পর্ব ২৩', category: 'jiboni' },
+      { id: 'jcCEiN4xhFI', title: 'জীবনী - পর্ব ২৪', category: 'jiboni' },
+      { id: 'lN_0oRePY-g', title: 'জীবনী - পর্ব ২৫', category: 'jiboni' },
+      { id: 'tSteK_9b5Q0', title: 'জীবনী - পর্ব ২৬', category: 'jiboni' }
     ];
 
-    const prophetFolders = [
+    const jiboniFolders = [
       {
-        id: 'early',
-        name: 'প্রথম যুগের নবীগণ',
-        description: 'আদম (আ.) থেকে ইউসুফ (আ.) পর্যন্ত',
-        icon: '📜',
+        id: 'foleder-1',
+        name: 'প্রথম যুগ',
+        description: 'প্রাচীন যুগের ব্যক্তিত্ব',
         videoIndices: [0, 1, 2, 3, 4, 5, 6]
       },
       {
-        id: 'musa',
-        name: 'মূসা (আ.) ও বনী ইসরাইল',
-        description: 'মূসা (আ.) থেকে দাউদ (আ.) পর্যন্ত',
-        icon: '🕊️',
+        id: 'foleder-2',
+        name: 'মধ্য যুগ',
+        description: 'মধ্য যুগের গুরুত্বপূর্ণ ব্যক্তিত্ব',
         videoIndices: [7, 8, 9, 10, 11, 12, 13]
       },
       {
-        id: 'isa',
-        name: 'ঈসা (আ.) ও অন্যান্য নবী',
-        description: 'সুলাইমান (আ.) থেকে ঈসা (আ.) পর্যন্ত',
-        icon: '🌟',
+        id: 'foleder-3',
+        name: 'পরবর্তী যুগ',
+        description: 'পরবর্তী যুগের আলোচিত ব্যক্তিত্ব',
         videoIndices: [14, 15, 16, 17, 18, 19]
       },
       {
-        id: 'muhammad',
-        name: 'শেষ নবী মুহাম্মদ (সা.)',
-        description: 'মুহাম্মদ (সা.)-এর জীবনী',
-        icon: '🕌',
+        id: 'foleder-4',
+        name: 'আধুনিক যুগ',
+        description: 'আধুনিক যুগের প্রভাবশালী ব্যক্তিত্ব',
         videoIndices: [20, 21, 22, 23, 24, 25]
       }
     ];
@@ -404,26 +400,26 @@
     let currentPage = 1;
     const itemsPerPage = 12;
     let selectedFolder = null;
-    let filteredItems = [...mediaItems, ...prophetVideos];
+    let filteredItems = [...mediaItems, ...jiboniVideos];
 
     function renderMedia() {
       grid.innerHTML = '';
 
-      if (currentCategory === 'prophets' && !selectedFolder) {
+      if (currentCategory === 'jiboni' && !selectedFolder) {
         renderFolders();
         return;
       }
 
-      if (currentCategory === 'prophets' && selectedFolder) {
-        const folder = prophetFolders.find(f => f.id === selectedFolder);
+      if (currentCategory === 'jiboni' && selectedFolder) {
+        const folder = jiboniFolders.find(f => f.id === selectedFolder);
         const backEl = document.createElement('div');
         backEl.className = 'col-span-full animate-fade-in';
         backEl.innerHTML = `
           <button onclick="backToFolders()" class="group flex items-center gap-3 bg-white dark:bg-slate-900 hover:bg-primary text-slate-700 dark:text-slate-200 hover:text-white font-bold px-5 py-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-primary transition-all duration-300 mb-3">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
-            <span>নবীদের জীবনী</span>
+            <span>জীবনী</span>
           </button>
-          <h2 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-6 animate-slide-up">${folder.icon} ${folder.name}</h2>
+          <h2 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-6 animate-slide-up">${folder.name}</h2>
         `;
         grid.appendChild(backEl);
       }
@@ -442,7 +438,7 @@
       paginatedItems.forEach((item) => {
         const thumbUrl = `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`;
         const categoryLabels = {
-            'prophets': 'নবীদের জীবনী',
+            'jiboni': 'জীবনী',
             'quran': 'কুরআন তেলাওয়াত',
             'lecture': 'আলোচনা'
         };
@@ -494,7 +490,7 @@
       document.getElementById('empty-state').classList.add('hidden');
       paginationContainer.innerHTML = '';
 
-      prophetFolders.forEach((folder) => {
+      jiboniFolders.forEach((folder) => {
         const folderCard = document.createElement('div');
         folderCard.className = "col-span-full flex flex-row items-center bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 group cursor-pointer hover:shadow-md hover:border-primary/20 transition-all duration-300";
         folderCard.onclick = () => selectFolder(folder.id);
@@ -557,7 +553,7 @@
     function openModal(item) {
         modalIframe.src = `https://www.youtube.com/embed/${item.id}?autoplay=1`;
         document.getElementById('modal-title').innerText = item.title;
-        document.getElementById('modal-category').innerText = item.category === 'prophets' ? 'নবীদের জীবনী' : (item.category === 'quran' ? 'কুরআন তেলাওয়াত' : 'আলোচনা');
+        document.getElementById('modal-category').innerText = item.category === 'jiboni' ? 'জীবনী' : (item.category === 'quran' ? 'কুরআন তেলাওয়াত' : 'আলোচনা');
         
         modal.classList.remove('pointer-events-none', 'opacity-0');
         modal.classList.add('opacity-100');
@@ -593,19 +589,19 @@
     }
 
     function applyFilters() {
-        if (currentCategory === 'prophets' && !selectedFolder) {
+        if (currentCategory === 'jiboni' && !selectedFolder) {
           filteredItems = [];
           renderMedia();
           return;
         }
         const query = searchInput.value.toLowerCase().trim();
-        if (currentCategory === 'prophets' && selectedFolder) {
-          const folder = prophetFolders.find(f => f.id === selectedFolder);
-          filteredItems = folder.videoIndices.map(i => prophetVideos[i]).filter(item => {
+        if (currentCategory === 'jiboni' && selectedFolder) {
+          const folder = jiboniFolders.find(f => f.id === selectedFolder);
+          filteredItems = folder.videoIndices.map(i => jiboniVideos[i]).filter(item => {
             return item.title.toLowerCase().includes(query);
           });
         } else {
-          const allItems = [...mediaItems, ...prophetVideos];
+          const allItems = [...mediaItems, ...jiboniVideos];
           filteredItems = allItems.filter(item => {
               const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
               const matchesSearch = item.title.toLowerCase().includes(query);
