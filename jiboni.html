@@ -100,6 +100,7 @@
   <div id="footer-placeholder"></div>
 
   <script src="js/components.js"></script>
+  <script src="js/avro.js"></script>
   <script src="js/videos.js"></script>
   <script>
     // jiboniVideos loaded from js/videos.js
@@ -205,10 +206,19 @@
 
     function renderFolders() {
       grid.innerHTML = '';
-      document.getElementById('empty-state').classList.add('hidden');
       paginationContainer.innerHTML = '';
 
-      jiboniFolders.forEach((folder) => {
+      const query = searchInput.value.toLowerCase().trim();
+      const bnQuery = typeof avroPhonetic !== 'undefined' ? avroPhonetic.parse(query).toLowerCase() : '';
+      const matchingFolders = jiboniFolders.filter(f => folderMatchesQuery(f, query, bnQuery));
+
+      if (matchingFolders.length === 0) {
+        document.getElementById('empty-state').classList.remove('hidden');
+        return;
+      }
+      document.getElementById('empty-state').classList.add('hidden');
+
+      matchingFolders.forEach((folder) => {
         const folderCard = document.createElement('div');
         folderCard.className = "col-span-full flex flex-row items-center bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 group cursor-pointer hover:shadow-md hover:border-primary/20 transition-all duration-300";
         folderCard.onclick = () => selectFolder(folder.id);
@@ -288,6 +298,7 @@
 
     function applyFilters() {
       const query = searchInput.value.toLowerCase().trim();
+      const bnQuery = typeof avroPhonetic !== 'undefined' ? avroPhonetic.parse(query).toLowerCase() : '';
       if (!selectedFolder) {
         filteredItems = [];
         renderMedia();
@@ -295,10 +306,18 @@
       }
       const folder = jiboniFolders.find(f => f.id === selectedFolder);
       filteredItems = folder.videoIndices.map(i => jiboniVideos[i]).filter(item => {
-        return item.title.toLowerCase().includes(query);
+        const t = item.title.toLowerCase();
+        return t.includes(query) || (bnQuery && t.includes(bnQuery));
       });
       currentPage = 1;
       renderMedia();
+    }
+
+    function folderMatchesQuery(folder, query, bnQuery) {
+      if (!query) return true;
+      const name = folder.name.toLowerCase();
+      const desc = folder.description.toLowerCase();
+      return name.includes(query) || desc.includes(query) || (bnQuery && (name.includes(bnQuery) || desc.includes(bnQuery)));
     }
 
     function resetFilters() {

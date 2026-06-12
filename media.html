@@ -132,6 +132,7 @@
   <div id="footer-placeholder"></div>
 
   <script src="js/components.js"></script>
+  <script src="js/avro.js"></script>
   <script src="js/videos.js"></script>
   <script>
     const grid = document.getElementById('media-grid');
@@ -239,8 +240,9 @@
         return;
       }
       currentPage = 1;
+      const bnQuery = typeof avroPhonetic !== 'undefined' ? avroPhonetic.parse(query).toLowerCase() : '';
       filteredItems = allVideos.filter(v =>
-        v.title.includes(query)
+        v.title.includes(query) || (bnQuery && v.title.includes(bnQuery))
       );
       categoryCards.classList.add('hidden');
       searchResults.classList.remove('hidden');
