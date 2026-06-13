@@ -85,7 +85,7 @@
       </div>
       
       <div class="flex items-center space-x-4">
-        <button id="player-prev-btn" class="text-slate-400 hover:text-primary transition-colors" title="পূর্ববর্তী আয়াত">
+        <button id="player-prev-btn" class="text-slate-400 hover:text-primary transition-colors" title="১০ সেকেন্ড পেছনে">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z" /></svg>
         </button>
         <button id="player-stop-btn" class="text-slate-400 hover:text-red-500 transition-colors">
@@ -94,7 +94,7 @@
         <button id="player-play-btn" class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg hover:bg-emerald-700 transition-all transform hover:scale-110">
             <svg id="player-play-icon" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         </button>
-        <button id="player-next-btn" class="text-slate-400 hover:text-primary transition-colors" title="পরবর্তী আয়াত">
+        <button id="player-next-btn" class="text-slate-400 hover:text-primary transition-colors" title="১০ সেকেন্ড সামনে">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z" /></svg>
         </button>
       </div>
@@ -417,12 +417,9 @@
         setPlayPauseUI(true);
     }
 
-    function skipAyah(dir) {
-        if (currentAyahs.length === 0) return;
-        const next = currentAyahIndex + dir;
-        if (next < 0 || next >= currentAyahs.length) return;
-        currentAyahIndex = next;
-        startAyahPlayback();
+    function seekAudio(seconds) {
+        if (!currentAudio) return;
+        currentAudio.currentTime = Math.max(0, Math.min(currentAudio.duration || Infinity, currentAudio.currentTime + seconds));
     }
 
     function toggleGlobalPlayer() {
@@ -480,13 +477,13 @@
 
     document.getElementById('player-play-btn').onclick = toggleGlobalPlayer;
     document.getElementById('player-stop-btn').onclick = stopGlobalAudio;
-    document.getElementById('player-prev-btn').onclick = () => skipAyah(-1);
-    document.getElementById('player-next-btn').onclick = () => skipAyah(1);
+    document.getElementById('player-prev-btn').onclick = () => seekAudio(-10);
+    document.getElementById('player-next-btn').onclick = () => seekAudio(10);
 
     document.addEventListener('keydown', (e) => {
-        if (currentAyahs.length === 0) return;
-        if (e.key === 'ArrowLeft') { e.preventDefault(); skipAyah(-1); }
-        if (e.key === 'ArrowRight') { e.preventDefault(); skipAyah(1); }
+        if (!currentAudio) return;
+        if (e.key === 'ArrowLeft') { e.preventDefault(); seekAudio(-10); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); seekAudio(10); }
     });
 
     function renderPagination(totalItems) {
