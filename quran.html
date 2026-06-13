@@ -244,6 +244,7 @@
     let currentAyahs = [];
     let currentAyahIndex = 0;
     let isPaused = false;
+    let pendingSeek = null;
     let selectedReciter = localStorage.getItem('selected_reciter') || 'ar.alafasy';
 
     const reciterSelect = document.getElementById('reciter-select');
@@ -399,7 +400,14 @@
         }
 
         currentAudio = new Audio(ayah.audio);
-        
+
+        currentAudio.addEventListener('loadedmetadata', () => {
+            if (pendingSeek !== null) {
+                currentAudio.currentTime = Math.max(0, Math.min(currentAudio.duration || 0, pendingSeek));
+                pendingSeek = null;
+            }
+        });
+
         const progress = Math.round((currentAyahIndex + 1) / currentAyahs.length * 100);
         document.getElementById('player-progress').style.width = `${progress}%`;
         document.getElementById('player-verse-info').innerText = `আয়াত: ${toBengaliNumerals(currentAyahIndex + 1)} / ${toBengaliNumerals(currentAyahs.length)}`;
@@ -419,7 +427,16 @@
 
     function seekAudio(seconds) {
         if (!currentAudio) return;
-        currentAudio.currentTime = Math.max(0, Math.min(currentAudio.duration || Infinity, currentAudio.currentTime + seconds));
+        const dur = currentAudio.duration;
+        const cur = currentAudio.currentTime || 0;
+        const newTime = cur + seconds;
+        if (newTime < 0) { currentAudio.currentTime = 0; return; }
+        if (isFinite(dur) && newTime >= dur - 0.5) {
+            currentAyahIndex++;
+            startAyahPlayback();
+        } else {
+            currentAudio.currentTime = newTime;
+        }
     }
 
     function toggleGlobalPlayer() {
